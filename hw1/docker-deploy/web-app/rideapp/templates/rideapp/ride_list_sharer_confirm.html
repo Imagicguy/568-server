@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>My Ride as Sharer</h1>
+  <p><strong><a href="{% url 'sharer' %}">Sharer Page</a></strong></p>
+
+  {% if object_list %}
+
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th></th>
+      <th>Destination</th>
+      <th>Arrival Time</th>
+      <th>Number of Passangers</th>
+
+    </tr>
+    {% for ride in object_list %}
+      <tr>
+        <th> <strong><a href="{% url 'sharer_confirm_detail' ride.id %}">View Details</a></strong></th>
+        <th>{{ ride.Destination }}</th>
+        <th>{{ride.Arrival_Time}}</th>
+        <th>{{ ride.Num_Passenger}}</th>
+      </tr>
+
+
+    {% endfor %}
+
+  {% else %}
+    <p>There are no ride.</p>
+  {% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Driver of ride to {{ride.Destination}}</h1>
+  <p><strong><a href="{% url 'ride_confirm' ride.id %}">Confirm This Ride</a></strong></p>
+  <p><strong>Arrival Time:</strong>{{ ride.Arrival_Time }}</p>
+  <p><strong>number of passangers</strong> {{ ride.Num_Passenger }}</p>
+  <p><strong>number of sharers</strong> {{ ride.Num_Sharer }}</p>
+  <p><strong>Vehicle Type</strong> {{ ride.Vehicle_type }}</p>
+  <p><strong>Special Request</strong> {{ ride.Special_request }}</p>
+  <p><strong>Ride Owner:</strong> {{ ride.owner }}</p>
+  <p><strong>Ride Driver:</strong> {{ ride.driver }}</p>
+  <p><strong>Ride Sharer:</strong> {{ ride.sharer }}</p>
+  <p><strong>Ride Status</strong> {{ ride.Ride_status }}</p>
+
+  <p><strong><a href="{% url 'driver' %}">Driver Page</a></strong></p>
+
+
+{% endblock %}

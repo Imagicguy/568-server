@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Ride App</h1>
+
+  <ul>
+    <h2>Ride Info</h2>
+    <li><strong>Number of Rides Available:</strong> {{ num_ride }}</li>
+    <!--<li><strong><a href="{% url 'rides' %}">All rides list</a></strong></li>-->
+  </ul>
+  <p><strong>Useful Information: Roles can be switched by clicking on items under "Role"</strong></p>
+
+<!--<h2>For Owner</h2>-->
+<!--<p><strong><a href="{% url 'owner' %}">Owner Page</a></strong></p>-->
+
+<!--<h2>For Sharer</h2>-->
+<!--<p><strong><a href="{% url 'sharer' %}">Sharer Page</a></strong></p>-->
+
+
+<!--<h2>For Driver</h2>-->
+<!--<p><stong><a href="{% url 'driver' %}">Driver Page</a></stong></p>-->
+
+{% endblock %}

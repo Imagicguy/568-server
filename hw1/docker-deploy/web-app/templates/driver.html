@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Driver Page</h1>
+  <h4>Driver information including Vehicle Capacity has to be updated to register as driver.</h4>
+  <ul>
+    <li><strong>My Vehicle Capacity: {{user.profile.Vehicle_Capacity}}</strong></li>
+    <li><strong>Number of Rides Available For Driver:</strong> {{ num_ride }}</li>
+    <li><strong><a href="{% url 'driver_list' %}">Search Rides as Driver</a></strong></li>
+    <p><strong><a href="{% url 'driver_confirm' %}">Check My Rides</a></strong></p>
+  </ul>
+
+
+{% endblock %}

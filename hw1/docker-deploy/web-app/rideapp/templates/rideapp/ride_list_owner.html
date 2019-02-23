@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Ride List for Owner: {{user.username}}</h1>
+  <p><strong><a href="{% url 'owner' %}">Owner Page</a></strong></p>
+
+  {% if ride_list %}
+
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th></th>
+      <th>Destination</th>
+      <th>Arrival Time</th>
+      <th>Number of Passangers</th>
+
+    </tr>
+    {% for ride in ride_list %}
+
+      <tr>
+        <th> <strong><a href="{% url 'owner_detail' ride.id %}">View Details</a></strong></th>
+        <th>{{ ride.Destination }}</th>
+        <th>{{ride.Arrival_Time}}</th>
+        <th>{{ ride.Num_Passenger}}</th>
+      </tr>
+
+
+    {% endfor %}
+
+  {% else %}
+    <p>There are no ride.</p>
+  {% endif %}
+
+
+
+{% endblock %}

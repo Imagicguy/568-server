@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Ride Share to {{ride.Destination}}</h1>
+  <p><strong><a href="{% url 'ride_update_sharer' ride.id %}">Update Sharer</a></strong></p>
+    <p><strong><a href="{% url 'share-cancel' ride.id %}">Cancel My Ride</a></strong></p>
+  <p><strong>Arrival Time:</strong>{{ ride.Arrival_Time }}</p>
+  <p><strong>number of passangers</strong> {{ ride.Num_Passenger }}</p>
+  <p><strong>number of sharers</strong> {{ ride.Num_Sharer }}</p>
+
+  <p><strong>Vehicle Type</strong> {{ ride.Vehicle_type }}</p>
+  <p><strong>Special Request</strong> {{ ride.Special_request }}</p>
+  <p><strong>Ride Owner:</strong> {{ ride.owner }}</p>
+  <p><strong>Ride Driver:</strong> {{ ride.driver }}</p>
+  <p><strong>Ride Sharer:</strong> {{ ride.sharer }}</p>
+  <p><strong>Ride Status</strong> {{ ride.Ride_status }}</p>
+
+  <p><strong><a href="{% url 'sharer' %}">Sharer Page</a></strong></p>
+
+
+{% endblock %}

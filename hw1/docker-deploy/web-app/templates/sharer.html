@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Sharer Page</h1>
+
+  <ul>
+
+    <li><strong>Number of Rides Available For Share:</strong> {{ num_ride }}</li>
+    <li><strong><a href="{% url 'share_create' %}">Search For Share</a></strong></li>
+    <p><strong><a href="{% url 'sharer_confirm' %}">Check My Rides</a></strong></p>
+  </ul>
+
+
+{% endblock %}

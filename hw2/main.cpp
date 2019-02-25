@@ -34,8 +34,6 @@ int main() {
     if (main_fd == -1) {
       std::cout << "error: main accept" << std::endl;
       continue;
-    } else {
-      std::cout << "accept succeed!" << std::endl;
     }
     std::string ip;
     ip = inet_ntoa(((struct sockaddr_in *)&socket_addr)->sin_addr);

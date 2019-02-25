@@ -1,7 +1,8 @@
 #include "proxy.h"
 
 void process(int ID);
-
+void error_check(int &ID, int error);
+void set_client(const char *hostname, const char *port);
 void Proxy::error_check(int &ID, int error) {
   switch (error) {
   case 1: {
@@ -79,17 +80,12 @@ int Proxy::set_client(const char *hostname, const char *port) {
     return -1;
   }
 
-  std::cout << "Connecting to " << master_hostname << " on port " << master_port
-            << "..." << std::endl;
-
   if (connect(socket_fd, host_info_list->ai_addr, host_info_list->ai_addrlen) ==
       -1) {
     std::cerr << "Error: cannot connect to socket" << std::endl;
     std::cerr << "  (" << master_hostname << "," << master_port << ")"
               << std::endl;
     return -1;
-  } else {
-    std::cout << "connection succeed!" << std::endl;
   }
   return socket_fd;
 }
@@ -101,10 +97,8 @@ void Proxy::process(int ID) {
   char buffer[capacity];
   memset(buffer, 0, capacity);
   recv_bytes = recv(client_fd, buffer, capacity, 0);
-  std::cout << "received is " << buffer << std::endl;
   std::string request(buffer);
   std::string header = request.substr(0, request.find("\r\n"));
-  std::cout << "header is " << header << std::endl;
   if (recv_bytes < 0) {
     error_check(ID, 1);
     return;
@@ -127,22 +121,9 @@ void Proxy::process(int ID) {
 void Proxy::get_handler() {}
 void Proxy::connect_handler(Parse request_t, int ID) {
   const char *port = request_t.port.c_str();
-  /*std::string server_host = request_t.hostname;
-  struct hostent *server = gethostbyname(server_host.c_str());
-  struct sockaddr_in server_addr;
-  server_addr.sin_family = AF_INET;
-  server_addr.sin_port = htons(atoi(port));
-
-  int server_fd = socket(AF_INET, SOCK_STREAM, 0);
-  int status;
-  if ((status = connect(server_fd, (struct sockaddr *)&server_addr,
-                        sizeof(server_addr))) < 0) {
-    error_check(ID, 400);
-    return;
-    }*/
   const char *host_name = request_t.hostname.c_str();
   int server_fd = set_client(host_name, port);
-  std::string msg = "HTTP/1.1 200 OK";
+  std::string msg = "HTTP/1.1 200 OK \r\n\r\n";
   if (send(client_fd, msg.c_str(), strlen(msg.c_str()), 0) < 0) {
     error_check(ID, 2);
     close(server_fd);
@@ -163,9 +144,11 @@ void Proxy::connect_handler(Parse request_t, int ID) {
     FD_SET(client_fd, &fds);
     memset(buffer, 0, 50000);
     if ((rv = select(max, &fds, NULL, NULL, &tv)) == -1) {
-      perror("select");
+      error_check(ID, 3);
+      return;
     } else if (rv == 0) {
-      std::cout << "Timeout occurred! No data after 10.5 seconds" << std::endl;
+      //      std::cout << "Timeout occurred! No data after 10.5 seconds" <<
+      //      std::endl;
     } else {
       int recv_bytes;
       int send_bytes;

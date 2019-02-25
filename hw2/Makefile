@@ -1,2 +1,1 @@
-main: main.cpp proxy.h socket.h
-	g++ -o test -std=c++11 -pthread main.cpp  
+g++ -g -Wall -pthread -o main main.cpp proxy.cpp proxy.h response.h socket.h

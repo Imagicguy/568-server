@@ -1,0 +1,9 @@
+#include "parse.h"
+
+void Parse::parse_type() { type = req_line.substr(0, req_line.find(" ")); }
+
+void Parse::parse_hostname() {
+  hostname = req_line.substr(req_line.find(" ") + 1, req_line.find(":"));
+}
+
+void Parse::parse_port() { port = req_line.substr(req_line.find(" ") + 1, ); }

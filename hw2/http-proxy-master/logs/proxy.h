@@ -115,7 +115,7 @@ private:
         return;
       }
       std::string add(newbuff);
-      std::cout << add << std::endl;
+      std::cout << "add is " << add << " end" << std::endl;
       temp.append(add);
       if (temp.find("\r\n\r\n") != std::string::npos) {
         break;
@@ -145,7 +145,7 @@ private:
     std::string origin_host = P.host_send();
     std::string req = temp;
     std::cout << "key of Cache is " << req << std::endl;
-    std::cout << "temp is " << temp << std::endl;
+    std::cout << "temp is " << temp << "   end of temp  " << std::endl;
     std::ofstream file;
     file.open("/var/log/erss/proxy.log", std::ios::app);
     std::string logreq = req.substr(0, req.find("\r\n"));
@@ -153,6 +153,8 @@ private:
          << std::asctime(std::gmtime(&result));
     file.close();
     if (P.method_send() == "CONNECT") {
+      std::cout << "port num is " << port_num << std::endl;
+      std::cout << "origin host is " << origin_host << std::endl;
       handle_connect(origin_host, port_num, ID);
     } else if (P.method_send() == "GET") {
       if (cache.find(req) != cache.end()) {

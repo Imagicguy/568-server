@@ -1,3 +1,4 @@
+
 #include "proxy.h"
 #include "socket.h"
 #include <arpa/inet.h>
@@ -16,7 +17,7 @@
 #include <vector>
 // socket proxy  parse request
 std::unordered_map<std::string, response> cache;
-void Processes(Proxy arg, int ID) { arg.process(cache, ID); }
+void Processes(Proxy arg, int ID);
 
 int main() {
   int id = 0;
@@ -43,3 +44,4 @@ int main() {
     std::thread(Processes, proxy, id).detach();
   }
 }
+void Processes(Proxy arg, int ID) { arg.process(ID); }

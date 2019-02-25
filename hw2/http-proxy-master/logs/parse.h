@@ -12,6 +12,7 @@ private:
   std::string request;
   std::string Parse_Url() {
     std::string recv_requ = request;
+    std::cout << "request is " << request << std::endl;
     recv_requ = recv_requ.substr(recv_requ.find(" ") + 1);
     std::string url;
     std::cout << "url is " << url << std::endl;

@@ -1,8 +1,9 @@
 #include "proxy.h"
-
+#include "parse.h"
 void process(int ID);
 void error_check(int &ID, int error);
 void set_client(const char *hostname, const char *port);
+
 void Proxy::error_check(int &ID, int error) {
   switch (error) {
   case 1: {
@@ -105,20 +106,46 @@ void Proxy::process(int ID) {
   }
 
   if (header.find("POST") != std::string::npos) {
-    post_handler();
+    // post_handler();
   } else if ((header.find("CONNECT") != std::string::npos)) {
     Parse request_t;
     request_t.init_connect(request, header);
     connect_handler(request_t, ID);
   } else if ((header.find("GET") != std::string::npos)) {
-    get_handler();
+    Parse request_t;
+    request_t.init_get(request, header);
+    get_handler(request_t, ID);
   } else {
     error_check(ID, 400);
   }
   content += std::string(buffer);
 }
 
-void Proxy::get_handler() {}
+void Proxy::get_handler(Parse request_t, int ID) {
+  std::cout << request_t.request << std::endl;
+  const char *port = request_t.port.c_str();
+  const char *host_name = request_t.hostname.c_str();
+  int server_fd = set_client(host_name, port);
+
+  if (send(server_fd, request_t.request.c_str(),
+           strlen(request_t.request.c_str()), 0) < 0) {
+    error_check(ID, 2);
+    close(server_fd);
+    return;
+  }
+  char buffer[50000];
+  memset(buffer, 0, 50000);
+  int recv_bytes;
+  if ((recv_bytes = recv(server_fd, buffer, 50000, 0)) < 0) {
+    error_check(ID, 1);
+    return;
+  }
+  if (send(client_fd, buffer, 50000, 0) < 0) {
+    error_check(ID, 2);
+    close(server_fd);
+    return;
+  }
+}
 void Proxy::connect_handler(Parse request_t, int ID) {
   const char *port = request_t.port.c_str();
   const char *host_name = request_t.hostname.c_str();
@@ -184,4 +211,4 @@ void Proxy::connect_handler(Parse request_t, int ID) {
   close(server_fd);
   return;
 }
-void Proxy::post_handler(){};
+void Proxy::post_handler(Parse request_t, int ID){};

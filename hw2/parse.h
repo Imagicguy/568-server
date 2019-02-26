@@ -30,8 +30,10 @@ public:
 
   Parse() {}
   void init_connect(std::string request, std::string line);
+  void init_get(std::string request, std::string line);
   void parse_type(std::string line);
-  void parse_hostname(std::string line);
-  void parse_port(std::string line);
+  void parse_hostname_c(std::string line);
+  void parse_port_c(std::string line);
+  void parse_hostname_g(std::string line);
 };
 #endif

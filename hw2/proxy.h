@@ -34,12 +34,10 @@ public:
   Proxy(int proxy, int client, std::string ipAdd, const char *num)
       : client_fd(client), proxy_fd(proxy), ip(ipAdd), port_num(num) {}
   void error_check(int &ID, int error);
-  void request_parser(); // need parse class
   int set_client(const char *hostname, const char *port);
-  void get_handler(); // need cache
-  void post_handler();
+  void get_handler(Parse request_t, int ID); // need cache
+  void post_handler(Parse request_t, int ID);
   void connect_handler(Parse request_t, int ID);
-  // void process(std::unordered_map<std::string, response> &cache, int ID);
   void process(int ID);
 };
 #endif

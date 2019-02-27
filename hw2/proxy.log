@@ -1,0 +1,65 @@
+13 : ERROR send() failed!
+12 : ERROR send() failed!
+14 : ERROR send() failed!
+3 : ERROR BAD REQUEST
+23 : ERROR send() failed!
+22 : ERROR send() failed!
+25 : ERROR send() failed!
+26 : ERROR send() failed!
+24 : ERROR recv() failed!
+31 : ERROR send() failed!
+39 : ERROR send() failed!
+38 : ERROR send() failed!
+41 : ERROR send() failed!
+42 : ERROR send() failed!
+46 : ERROR send() failed!
+44 : ERROR send() failed!
+43 : ERROR send() failed!
+1Responding /'HTTP/1.1 200 OK/' 
+3Responding /'HTTP/1.1 200 OK/' 
+5: Requesting /'GET http://www.ruanyifeng.com/ HTTP/1.1/' from www.ruanyifeng.com
+6: Requesting /'GET http://www.ruanyifeng.com/home.html HTTP/1.1/' from www.ruanyifeng.com
+7: Requesting /'GET http://www.ruanyifeng.com/images_pub/pub_10.jpg HTTP/1.1/' from www.ruanyifeng.com
+8: Requesting /'GET http://www.ruanyifeng.com/images_pub/pub_195.jpg HTTP/1.1/' from www.ruanyifeng.com
+9Responding /'HTTP/1.1 200 OK/' 
+11: Requesting /'GET http://www.ruanyifeng.com/blog/ HTTP/1.1/' from www.ruanyifeng.com
+14Responding /'HTTP/1.1 200 OK/' 
+15Responding /'HTTP/1.1 200 OK/' 
+17Responding /'HTTP/1.1 200 OK/' 
+12: Requesting /'GET http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html HTTP/1.1/' from www.ruanyifeng.com
+20Responding /'HTTP/1.1 200 OK/' 
+21Responding /'HTTP/1.1 200 OK/' 
+13: Requesting /'GET http://static.bshare.cn/js/libs/fingerprint2.min.js HTTP/1.1/' from static.bshare.cn
+1Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+4 : ERROR BAD REQUEST
+10: Requesting "GET http://www.cpluscplus.com/ HTTP/1.1" from www.cpluscplus.com
+11: Requesting "GET http://ww3.cpluscplus.com/ HTTP/1.1" from ww3.cpluscplus.com
+13Responding "HTTP/1.1 200 OK" 
+12: Requesting "GET http://img.sedoparking.com/js/jquery-1.11.3.custom.min.js HTTP/1.1" from img.sedoparking.com
+15: Requesting "GET http://www.gstatic.com/domainads/tracking/caf.gif?ts=1551301800351&rid=409639 HTTP/1.1" from www.gstatic.com
+16Responding "HTTP/1.1 200 OK" 
+18: Requesting "GET http://www.cpluscplus.com/ HTTP/1.1" from www.cpluscplus.com
+19: Requesting "GET http://www.cpluscplus.com/favicon.ico HTTP/1.1" from www.cpluscplus.com
+22Responding "HTTP/1.1 200 OK" 
+20Responding "HTTP/1.1 200 OK" 
+21Responding "HTTP/1.1 200 OK" 
+26Responding "HTTP/1.1 200 OK" 
+28Responding "HTTP/1.1 200 OK" 
+30Responding "HTTP/1.1 200 OK" 
+32Responding "HTTP/1.1 200 OK" 
+34Responding "HTTP/1.1 200 OK" 
+36Responding "HTTP/1.1 200 OK" 
+40Responding "HTTP/1.1 200 OK" 
+42: Requesting "GET http://www.cplusplus.com/ HTTP/1.1" from www.cplusplus.com
+43: Requesting "GET http://www.cplusplus.com/v321/main.js HTTP/1.1" from www.cplusplus.com
+35 : ERROR BAD REQUEST
+38 : ERROR BAD REQUEST
+39 : ERROR BAD REQUEST
+45 : ERROR BAD REQUEST
+46 : ERROR BAD REQUEST
+47 : ERROR BAD REQUEST
+44 : ERROR BAD REQUEST

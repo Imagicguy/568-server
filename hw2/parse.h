@@ -27,6 +27,7 @@ public:
   std::string type;
   std::string hostname;
   std::string port;
+  std::string header;
 
   Parse() {}
   void init_connect(std::string request, std::string line);

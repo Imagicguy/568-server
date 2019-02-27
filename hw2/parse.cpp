@@ -6,6 +6,7 @@ void parse_hostname(std::string line);
 void parsef_port(std::string line);
 
 void Parse::init_connect(std::string request, std::string line) {
+  header = line;
   std::string res = request;
   parse_hostname_c(line);
   parse_type(line);
@@ -13,6 +14,7 @@ void Parse::init_connect(std::string request, std::string line) {
 }
 
 void Parse::init_get(std::string requests, std::string line) {
+  header = line;
   request = requests;
   parse_hostname_g(requests);
   parse_type(line);

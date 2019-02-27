@@ -108,9 +108,11 @@ void Proxy::process(int ID) {
   }
 
   if (header.find("POST") != std::string::npos) {
-    // std::cout << "this is a post " << std::endl;
-    // std::cout << request << std::endl;
-    // post_handler();
+    std::cout << "this is a post " << std::endl;
+    std::cout << request << std::endl;
+    Parse request_t;
+    request_t.init_get(request, header);
+    post_handler(request_t, ID);
   } else if ((header.find("CONNECT") != std::string::npos)) {
     Parse request_t;
     request_t.init_connect(request, header);
@@ -131,9 +133,9 @@ void Proxy::get_handler(Parse request_t, int ID) {
   const char *port = request_t.port.c_str();
   const char *host_name = request_t.hostname.c_str();
   int server_fd = set_client(host_name, port);
-  int start1 = request_t.request.find("http://") + 7;
-  std::string temp1 = request_t.request.substr(start1);
-  int start2 = temp1.find("/ ");
+  // int start1 = request_t.request.find("http://") + 7;
+  // std::string temp1 = request_t.request.substr(start1);
+  //  int start2 = temp1.find("/ ");
   // request_t.request = request_t.request.substr(0, start1 - 7) +
   // request_t.request.substr(start2);
 
@@ -229,4 +231,16 @@ void Proxy::connect_handler(Parse request_t, int ID) {
   close(server_fd);
   return;
 }
-void Proxy::post_handler(Parse request_t, int ID){};
+void Proxy::post_handler(Parse request_t, int ID) {
+  std::string request = request_t.request;
+  int start = request.find("Content-Length: ") + 16;
+  std::string temp = request.substr(start);
+  temp = temp.substr(0, temp.find("\r\n"));
+  int length = atoi(temp.c_str());
+  std::cout << " is that correct length ? " << length << std::endl;
+
+  std::cout << request_t.request << std::endl;
+  const char *port = request_t.port.c_str();
+  const char *host_name = request_t.hostname.c_str();
+  int server_fd = set_client(host_name, port);
+}

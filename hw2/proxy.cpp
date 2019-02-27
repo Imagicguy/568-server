@@ -134,8 +134,8 @@ void Proxy::get_handler(Parse request_t, int ID) {
   int start1 = request_t.request.find("http://") + 7;
   std::string temp1 = request_t.request.substr(start1);
   int start2 = temp1.find("/ ");
-  request_t.request = request_t.request.substr(0, start1 - 7) +
-                      request_t.request.substr(start2);
+  // request_t.request = request_t.request.substr(0, start1 - 7) +
+  // request_t.request.substr(start2);
 
   request_t.request.replace(request_t.request.find("keep-alive"), 10, "closed");
   std::cout << "request is " << request_t.request << std::endl;

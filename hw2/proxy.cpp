@@ -93,11 +93,17 @@ int Proxy::set_client(const char *hostname, const char *port) {
 void Proxy::process(int ID) {
   std::string content;
   int recv_bytes = 1;
-  int capacity = 10000;
+  int capacity = 50000;
 
   char buffer[capacity];
   memset(buffer, 0, capacity);
   recv_bytes = recv(client_fd, buffer, capacity, 0);
+  std::cout << "recved from client : " << std::endl;
+  std::cout << buffer << std::endl;
+  std::string temp(buffer);
+
+  std::cout << "cut by rn" << std::endl;
+  std::cout << temp.substr(0, temp.find("\r\n\r\n")) << std::endl;
   std::string request(buffer);
   std::string header = request.substr(0, request.find("\r\n"));
   if (recv_bytes < 0) {
@@ -112,6 +118,7 @@ void Proxy::process(int ID) {
     request_t.init_connect(request, header);
     connect_handler(request_t, ID);
   } else if ((header.find("GET") != std::string::npos)) {
+    std::cout << "this is a get" << std::endl;
     Parse request_t;
     request_t.init_get(request, header);
     get_handler(request_t, ID);

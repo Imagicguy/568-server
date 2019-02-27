@@ -417,6 +417,8 @@ private:
       return;
     }
     const char *pp = newbuff.data();
+    std::cout << "this is what I got from server " << std::endl;
+    std::cout << pp << std::endl;
     Parse_Response P_res(newbuff);
     file.open("/var/log/erss/proxy.log", std::ios::app);
     file << ID << " : "

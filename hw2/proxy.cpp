@@ -133,6 +133,7 @@ void Proxy::process(int ID) {
   } else if (temp2.find("Transfer-Encoding") != std::string::npos) {
     // std::cout << "found chunked is : " << temp2.find("chunked") << std::endl;
     // std::cout << temp2 << std::endl;
+    std::cout << "this is chunked!" << std::endl;
     do {
       max_len = recv(client_fd, p, 5000, 0);
       p += max_len;
@@ -142,10 +143,12 @@ void Proxy::process(int ID) {
       if (temp.find("\r\n\r\n") != std::string::npos) {
         break;
       }
-
     } while (max_len > 0);
   } else {
   }
+  std::cout << "***********request is********** " << std::endl;
+  std::cout << buffer << std::endl;
+  std::cout << "*****************" << std::endl;
   std::string request(buffer);
   std::string header = request.substr(0, request.find("\r\n"));
   if (recv_bytes < 0) {
@@ -154,7 +157,7 @@ void Proxy::process(int ID) {
   }
 
   if (header.find("POST") != std::string::npos) {
-    std::cout << "this is a post " << std::endl;
+    //  std::cout << "this is a post " << std::endl;
     // std::cout << request << std::endl;
     Parse request_t;
     request_t.init_get(request, header);
@@ -176,6 +179,9 @@ void Proxy::process(int ID) {
 
 void Proxy::get_handler(Parse request_t, int ID) {
   // std::cout << request_t.request << std::endl;
+  if (request_t.request.find("max-age") != std::string::npos) {
+    std::cout << "got max-age from GET" << std::endl;
+  }
   const char *port = request_t.port.c_str();
   const char *host_name = request_t.hostname.c_str();
   int server_fd = set_client(host_name, port);
@@ -285,16 +291,16 @@ void Proxy::post_handler(Parse request_t, int ID) {
   int start = request.find("Content-Length: ") + 16;
   std::string temp = request.substr(start);
   temp = temp.substr(0, temp.find("\r\n"));
-  int length = atoi(temp.c_str());
-  std::cout << " is that correct length ? " << length << std::endl;
+  // int length = atoi(temp.c_str());
+  // std::cout << " is that correct length ? " << length << std::endl;
 
-  std::cout << request_t.request << std::endl;
+  // std::cout << request_t.request << std::endl;
   const char *port = request_t.port.c_str();
   const char *host_name = request_t.hostname.c_str();
   int server_fd = set_client(host_name, port);
 
   request_t.request.replace(request_t.request.find("keep-alive"), 10, "closed");
-  std::cout << "request is " << request_t.request << std::endl;
+  // std::cout << "request is " << request_t.request << std::endl;
   if (send(server_fd, request_t.request.c_str(),
            strlen(request_t.request.c_str()), 0) < 0) {
     error_check(ID, 2);

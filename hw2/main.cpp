@@ -1,4 +1,4 @@
-
+#include "main.h"
 #include "proxy.h"
 #include "socket.h"
 #include <arpa/inet.h>
@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include <vector>
 // socket proxy  parse request
-std::unordered_map<std::string, response> cache;
+
 void Processes(Proxy arg, int ID);
 
 int main() {

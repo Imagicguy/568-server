@@ -1,7 +1,9 @@
 #ifndef __PROXY_H__
 #define __PROXY_H__
+#include "cache.h"
+#include "main.h"
 #include "parse.h"
-
+#include "response.h"
 #include <arpa/inet.h>
 #include <cstring>
 #include <ctime>

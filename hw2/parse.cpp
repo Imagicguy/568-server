@@ -25,7 +25,7 @@ void Parse::parse_type(std::string line) {
 }
 void Parse::parse_hostname_g(std::string request) {
   std::string temp = request.substr(request.find("Host: ") + 6);
-  std::cout << "temp is " << temp << std::endl;
+  //  std::cout << "temp is " << temp << std::endl;
   hostname = temp.substr(0, temp.find("\r\n"));
 }
 void Parse::parse_hostname_c(std::string line) {

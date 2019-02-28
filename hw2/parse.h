@@ -28,6 +28,7 @@ public:
   std::string hostname;
   std::string port;
   std::string header;
+  std::string age;
 
   Parse() {}
   void init_connect(std::string request, std::string line);

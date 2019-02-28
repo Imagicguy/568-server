@@ -1,5 +1,5 @@
-#ifndef __RESPONSE__H__
-#define __RESPONSE__H__
+#ifndef __PARSE__H__
+#define __PARSE__H__
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -23,7 +23,7 @@ public:
   string data;
   finalResponse()
       : revalidation(false), proxyrev(false), nocache(false), nostore(false),
-        notransform(false), pub(true), priv(false), maxage(0), smaxage(0) {}
+        notransform(false), pub(true), priv(false),maxage(0),smaxage(0) {}
   ~finalResponse() {}
 };
 

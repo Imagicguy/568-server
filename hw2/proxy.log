@@ -1033,3 +1033,183 @@
 89 : ERROR send() failed!
 91 : ERROR send() failed!
 90 : ERROR send() failed!
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+13Responding "HTTP/1.1 200 OK" 
+14Responding "HTTP/1.1 200 OK" 
+20Responding "HTTP/1.1 200 OK" 
+21Responding "HTTP/1.1 200 OK" 
+22Responding "HTTP/1.1 200 OK" 
+23Responding "HTTP/1.1 200 OK" 
+25: Requesting "GET http://www.example.com/ HTTP/1.1" from www.example.com
+19Responding "HTTP/1.1 200 OK" 
+26Responding "HTTP/1.1 200 OK" 
+28Responding "HTTP/1.1 200 OK" 
+29: Requesting "GET http://www.ruanyifeng.com/ HTTP/1.1" from www.ruanyifeng.com
+30: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+32: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+31: Requesting "GET http://www.ruanyifeng.com/styles.css HTTP/1.1" from www.ruanyifeng.com
+33: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/theme_scrapbook.css HTTP/1.1" from www.ruanyifeng.com
+34: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_0.png HTTP/1.1" from www.ruanyifeng.com
+36: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_204.jpg HTTP/1.1" from www.ruanyifeng.com
+35: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_80.jpg HTTP/1.1" from www.ruanyifeng.com
+37Responding "HTTP/1.1 200 OK" 
+38: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+41Responding "HTTP/1.1 200 OK" 
+42Responding "HTTP/1.1 200 OK" 
+44: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+7Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+2Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+14Responding "HTTP/1.1 200 OK" 
+17: Requesting "GET http://www.ruanyifeng.com/ HTTP/1.1" from www.ruanyifeng.com
+18: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+20: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+19: Requesting "GET http://www.ruanyifeng.com/styles.css HTTP/1.1" from www.ruanyifeng.com
+21: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/theme_scrapbook.css HTTP/1.1" from www.ruanyifeng.com
+23: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_46.jpg HTTP/1.1" from www.ruanyifeng.com
+24: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_230.jpg HTTP/1.1" from www.ruanyifeng.com
+22: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_0.png HTTP/1.1" from www.ruanyifeng.com
+26: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+25Responding "HTTP/1.1 200 OK" 
+28Responding "HTTP/1.1 200 OK" 
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+13Responding "HTTP/1.1 200 OK" 
+14Responding "HTTP/1.1 200 OK" 
+15Responding "HTTP/1.1 200 OK" 
+18Responding "HTTP/1.1 200 OK" 
+19Responding "HTTP/1.1 200 OK" 
+23Responding "HTTP/1.1 200 OK" 
+17Responding "HTTP/1.1 200 OK" 
+26: Requesting "GET http://www.ruanyifeng.com/ HTTP/1.1" from www.ruanyifeng.com
+27: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+29: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+28: Requesting "GET http://www.ruanyifeng.com/styles.css HTTP/1.1" from www.ruanyifeng.com
+30: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/theme_scrapbook.css HTTP/1.1" from www.ruanyifeng.com
+31: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_0.png HTTP/1.1" from www.ruanyifeng.com
+32: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_206.jpg HTTP/1.1" from www.ruanyifeng.com
+33: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_175.jpg HTTP/1.1" from www.ruanyifeng.com
+34Responding "HTTP/1.1 200 OK" 
+35: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+37Responding "HTTP/1.1 200 OK" 
+40Responding "HTTP/1.1 200 OK" 
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+13Responding "HTTP/1.1 200 OK" 
+14Responding "HTTP/1.1 200 OK" 
+17Responding "HTTP/1.1 200 OK" 
+18Responding "HTTP/1.1 200 OK" 
+22Responding "HTTP/1.1 200 OK" 
+16Responding "HTTP/1.1 200 OK" 
+25: Requesting "GET http://www.ruanyifeng.com/ HTTP/1.1" from www.ruanyifeng.com
+23Responding "HTTP/1.1 200 OK" 
+26: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+28: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+27: Requesting "GET http://www.ruanyifeng.com/styles.css HTTP/1.1" from www.ruanyifeng.com
+29: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/theme_scrapbook.css HTTP/1.1" from www.ruanyifeng.com
+30: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_0.png HTTP/1.1" from www.ruanyifeng.com
+32: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_355.jpg HTTP/1.1" from www.ruanyifeng.com
+31: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_312.jpg HTTP/1.1" from www.ruanyifeng.com
+33Responding "HTTP/1.1 200 OK" 
+34: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+36Responding "HTTP/1.1 200 OK" 
+39Responding "HTTP/1.1 200 OK" 
+40Responding "HTTP/1.1 200 OK" 
+41: Requesting "GET http://www.example.com/ HTTP/1.1" from www.example.com
+42Responding "HTTP/1.1 200 OK" 
+43: Requesting "GET http://www.cplusplus.com/ HTTP/1.1" from www.cplusplus.com
+44: Requesting "GET http://www.cplusplus.com/v321/main.js HTTP/1.1" from www.cplusplus.com
+49: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+45 : ERROR BAD REQUEST
+47 : ERROR BAD REQUEST
+46 : ERROR BAD REQUEST
+48 : ERROR BAD REQUEST
+50Responding "HTTP/1.1 200 OK" 
+52Responding "HTTP/1.1 200 OK" 
+51Responding "HTTP/1.1 200 OK" 
+53Responding "HTTP/1.1 200 OK" 
+55Responding "HTTP/1.1 200 OK" 
+54Responding "HTTP/1.1 200 OK" 
+56Responding "HTTP/1.1 200 OK" 
+59Responding "HTTP/1.1 200 OK" 
+64: Requesting "GET http://www.cplusplus.com/ico/social_twitter.png HTTP/1.1" from www.cplusplus.com
+62: Requesting "GET http://www.cplusplus.com/ico/social_googleplus.png HTTP/1.1" from www.cplusplus.com
+63: Requesting "GET http://www.cplusplus.com/ico/social_facebook.png HTTP/1.1" from www.cplusplus.com
+65: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+13Responding "HTTP/1.1 200 OK" 
+14: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+18Responding "HTTP/1.1 200 OK" 
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+13Responding "HTTP/1.1 200 OK" 
+14: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+19Responding "HTTP/1.1 200 OK" 
+20: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+21Responding "HTTP/1.1 200 OK" 
+23: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+24Responding "HTTP/1.1 200 OK" 
+25Responding "HTTP/1.1 200 OK" 
+26Responding "HTTP/1.1 200 OK" 
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+13Responding "HTTP/1.1 200 OK" 
+14Responding "HTTP/1.1 200 OK" 
+15: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+21Responding "HTTP/1.1 200 OK" 
+22Responding "HTTP/1.1 200 OK" 
+23: Requesting "GET http://www.ruanyifeng.com/ HTTP/1.1" from www.ruanyifeng.com
+24: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+26: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+25: Requesting "GET http://www.ruanyifeng.com/styles.css HTTP/1.1" from www.ruanyifeng.com
+27: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/theme_scrapbook.css HTTP/1.1" from www.ruanyifeng.com
+28: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_0.png HTTP/1.1" from www.ruanyifeng.com
+29: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_163.jpg HTTP/1.1" from www.ruanyifeng.com
+30: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_85.jpg HTTP/1.1" from www.ruanyifeng.com
+31Responding "HTTP/1.1 200 OK" 
+32: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+34Responding "HTTP/1.1 200 OK" 
+36: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com

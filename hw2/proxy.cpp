@@ -1,4 +1,5 @@
 #include "proxy.h"
+#include "main.h"
 #include "parse.h"
 void process(int ID);
 void error_check(int &ID, int error);
@@ -6,32 +7,33 @@ void set_client(const char *hostname, const char *port);
 
 void Proxy::error_check(int &ID, int error) {
   std::ofstream file;
+
   file.open("proxy.log", std::ios::app);
   switch (error) {
   case 1: {
-    file << ID << " : "
+    /*file << ID << " : "
          << "ERROR recv() failed!" << std::endl;
-    file.close();
+         file.close();*/
     break;
   }
 
   case 2: {
-    file << ID << " : "
+    /*file << ID << " : "
          << "ERROR send() failed!" << std::endl;
-    file.close();
+         file.close();*/
     break;
   }
 
   case 3: {
-    file << ID << " : "
+    /*file << ID << " : "
          << "ERROR select() failed!" << std::endl;
-    file.close();
+         file.close();*/
     break;
   }
 
-  case 4: {
+  case 503: {
     file << ID << " : "
-         << "ERROR connect() failed" << std::endl;
+         << "ERROR Service Unavailable" << std::endl;
     file.close();
     break;
   }
@@ -96,9 +98,8 @@ int Proxy::set_client(const char *hostname, const char *port) {
 
   if (connect(socket_fd, host_info_list->ai_addr, host_info_list->ai_addrlen) ==
       -1) {
-    std::cerr << "Error: cannot connect to socket" << std::endl;
-    std::cerr << "  (" << master_hostname << "," << master_port << ")"
-              << std::endl;
+    int ID = 80;
+    error_check(ID, 6);
     return -1;
   }
   return socket_fd;
@@ -179,18 +180,17 @@ void Proxy::process(int ID) {
 
 void Proxy::get_handler(Parse request_t, int ID) {
   // std::cout << request_t.request << std::endl;
-  if (request_t.request.find("max-age") != std::string::npos) {
-    std::cout << "got max-age from GET" << std::endl;
-  }
+  std::cout << "this is  a GET" << std::endl;
   const char *port = request_t.port.c_str();
   const char *host_name = request_t.hostname.c_str();
   int server_fd = set_client(host_name, port);
-  // int start1 = request_t.request.find("http://") + 7;
-  // std::string temp1 = request_t.request.substr(start1);
-  //  int start2 = temp1.find("/ ");
-  // request_t.request = request_t.request.substr(0, start1 - 7) +
-  // request_t.request.substr(start2);
-
+  Cache block;
+  block.init_cache(request_t.request);
+  if (block.checkcache(cache)) {
+    // revalidation
+  } else {
+    // send
+  }
   request_t.request.replace(request_t.request.find("keep-alive"), 10, "closed");
   // std::cout << "request is " << request_t.request << std::endl;
 
@@ -200,6 +200,7 @@ void Proxy::get_handler(Parse request_t, int ID) {
     close(server_fd);
     return;
   }
+  std::cout << "reach log" << std::endl;
   std::ofstream file;
   file.open("proxy.log", std::ios::app);
   file << ID << ": Requesting \"" << request_t.header << "\" from "
@@ -207,13 +208,42 @@ void Proxy::get_handler(Parse request_t, int ID) {
   file.close();
   char buff[10000];
   int max_len;
-  while ((max_len = recv(server_fd, buff, 10000, 0)) >= 0) {
+  std::string response = "";
+  std::string response_line = "";
+  while ((max_len = recv(server_fd, buff, 10000, 0)) > 0) {
+    std::string temp5(buff);
+    response_line = response.substr(0, response.find("\r\n"));
+    // std::cout << "temp5********" << std::endl;
+    //  std::cout << temp5 << std::endl;
+    temp5 = temp5.substr(0, max_len);
+    response += temp5;
     if (send(client_fd, buff, max_len, MSG_NOSIGNAL) < 0) {
       error_check(ID, 2);
       close(server_fd);
+      std::cout << "&&&&&&&&&send return" << std::endl;
       return;
     }
   }
+  std::cout << "repsonse_line is " << response_line << std::endl;
+  // std::cout << "response  is " << response << std::endl;
+  std::string age = "";
+  std::string expires = "";
+  std::string cache_control = "";
+  if (response.find("Age: ") != std::string::npos) {
+    age = response.substr(response.find("Age: ") + 5);
+    age = age.substr(0, age.find("\r\n"));
+  }
+  if (response.find("Expires: ") != std::string::npos) {
+    expires = response.substr(response.find("Expires: ") + 9);
+    expires = expires.substr(0, expires.find("\r\n"));
+  }
+  if (response.find("Cache-control: ") != std::string::npos) {
+    cache_control = response.substr(response.find("Cache-control: ") + 15);
+    cache_control = cache_control.substr(0, cache_control.find("\r\n"));
+  }
+  std::cout << "Age: " << age << std::endl;
+  std::cout << "Expires: " << expires << std::endl;
+  std::cout << "Cache_control: " << cache_control << std::endl;
 }
 void Proxy::connect_handler(Parse request_t, int ID) {
   const char *port = request_t.port.c_str();

@@ -113,7 +113,7 @@ void Cache::savecache() {
       (response.find("no-transform") != string::npos) ||
       (response.find("no-store") != string::npos)) {
     ofstream file;
-    file.open("proxy.log", ios::app);
+    file.open("/var/log/erss/proxy.log", ios::app);
     file << id << ": "
          << "not cacheable because no-" << endl;
     file.close();
@@ -156,7 +156,7 @@ void Cache::savecache() {
         struct tm time;
         strptime(expire_t, "%a %b %d %Y %H:%M:%S UTC",
                  &time); // alright or has to be like tutorial???
-        file.open("proxy.log", ios::app);
+        file.open("/var/log/erss/proxy.log", ios::app);
         file << id << ": "
              << "cached, expires at " << asctime(&time) << endl;
         file.close();
@@ -168,7 +168,7 @@ void Cache::savecache() {
       time_t tt;
       tt = chrono::system_clock::to_time_t(now);
       ofstream file;
-      file.open("proxy.log", ios::app);
+      file.open("/var/log/erss/proxy.log", ios::app);
       file << id << ": "
            << "cached, expires at " << ctime(&tt) << endl;
       file.close();
@@ -185,7 +185,7 @@ void Cache::savecache() {
       ((response.find("proxy-revalidate") != string::npos) &&
        (cache[request].priv == true))) {
     ofstream file;
-    file.open("proxy.log", ios::app);
+    file.open("/var/log/erss/proxy.log", ios::app);
     file << id << ": "
          << "cached, but requires re-validation" << endl;
     if (response.find("must-revalidate") != string::npos) {
@@ -209,7 +209,7 @@ void Cache::checkcache() {
           (cache[request].data.find("no-transform") != string::npos) ||
           (cache[request].data.find("no-store") != string::npos)) {
         ofstream file;
-        file.open("proxy.log", ios::app);
+        file.open("/var/log/erss/proxy.log", ios::app);
         file << id << ": "
              << "in cache, requires validation" << endl;
         file.close();
@@ -232,7 +232,7 @@ void Cache::checkcache() {
         if (cache[request].data.find("must-revalidate") ||
             cache[request].data.find("proxy-revalidate")) {
           ofstream file;
-          file.open("proxy.log", ios::app);
+          file.open("/var/log/erss/proxy.log", ios::app);
           file << id << ": "
                << "in cache, requires validation" << endl;
           file.close();
@@ -252,7 +252,7 @@ void Cache::checkcache() {
           struct tm time;
           strptime(expire_t, "%a %b %d %Y %H:%M:%S UTC",
                    &time); // alright or has to be like tutorial???
-          file.open("proxy.log", ios::app);
+          file.open("/var/log/erss/proxy.log", ios::app);
           file << id << ": "
                << "in cache, but expired at " << asctime(&time) << endl;
           file.close();
@@ -272,7 +272,7 @@ void Cache::checkcache() {
           send(serverfd, message1, strlen(message), 0);
           if (get_ETag(cache[request].data.data()).size() != 0) {
             ofstream file;
-            file.open("proxy.log", ios::app);
+            file.open("/var/log/erss/proxy.log", ios::app);
             file << id << ": "
                  << "NOTE ETag: " << get_ETag(cache[request].data.data())
                  << endl;
@@ -287,7 +287,7 @@ void Cache::checkcache() {
           }
           if (get_modified(cache[request].data.data()).size() != 0) {
             ofstream file;
-            file.open("proxy.log", ios::app);
+            file.open("/var/log/erss/proxy.log", ios::app);
             file << id << ": "
                  << "NOTE modified: "
                  << get_modified(cache[request].data.data()) << endl;
@@ -309,7 +309,7 @@ void Cache::checkcache() {
         chrono::system_clock::time_point today = chrono::system_clock::now();
         tt = chrono::system_clock::to_time_t(today);
         ofstream file;
-        file.open("proxy.log", ios::app);
+        file.open("/var/log/erss/proxy.log", ios::app);
         file << id << ": "
              << "in cache, but expired at " << tt << endl;
         const char *message = cache[request].data.data();
@@ -318,7 +318,7 @@ void Cache::checkcache() {
         return;
       }
       ofstream file;
-      file.open("proxy.log", ios::app);
+      file.open("/var/log/erss/proxy.log", ios::app);
       file << id << ": "
            << "in cache,valid" << endl;
       const char *message = cache[request].data.data();
@@ -327,7 +327,7 @@ void Cache::checkcache() {
     }
   }
   ofstream file;
-  file.open("proxy.log", ios::app);
+  file.open("/var/log/erss/proxy.log", ios::app);
   file << id << ": "
        << "not in cache" << endl;
   send(serverfd, request.c_str(), strlen(request.c_str()), 0);

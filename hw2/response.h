@@ -18,12 +18,12 @@ public:
   bool priv;
   string ETag;
   time_t maxage;
-  time_t smaxage;
+  // time_t smaxage;
   int Age;
   string data;
   finalResponse()
       : revalidation(false), proxyrev(false), nocache(false), nostore(false),
-        notransform(false), pub(true), priv(false), maxage(0), smaxage(0) {}
+        notransform(false), pub(true), priv(false), maxage(0) {}
   ~finalResponse() {}
 };
 

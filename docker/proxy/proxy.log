@@ -499,3 +499,4 @@
 61: Requesting "GET http://static.bshare.cn/b/styles/bshareS1.js?v=20180226 HTTP/1.1" from static.bshare.cn
 63: Requesting "GET http://bshare.optimix.asia/bshare_view?Callback=bShare.viewcb&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog%2F2019%2F03%2Fweekly-issue-45.html%23comment-409619&h=%23comment-409619&uuid=15e016b4-0028-44f1-a40d-a3c9d9c13c28&l=17&lite=1&ref=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog%2F&ot=%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB%E7%AC%AC%2045%20%E6%9C%9F%20-%20%E9%98%AE%E4%B8%80%E5%B3%B0%E7%9A%84%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97&cs=UTF-8&fp=607006ebac6abff1ec7b88c148119c4e&b=bs196a7d HTTP/1.1" from bshare.optimix.asia
 64: Requesting "GET http://static.bshare.cn/b/components/bsPlatforms.js?v=20180226 HTTP/1.1" from static.bshare.cn
+45 : ERROR BAD REQUEST

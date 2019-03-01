@@ -149,9 +149,7 @@ void Proxy::process(int ID) {
     } while (max_len > 0);
   } else {
   }
-  std::cout << "***********request is********** " << std::endl;
-  std::cout << buffer << std::endl;
-  std::cout << "*****************" << std::endl;
+
   std::string request(buffer);
   std::string header = request.substr(0, request.find("\r\n"));
   if (recv_bytes < 0) {
@@ -182,7 +180,7 @@ void Proxy::process(int ID) {
 
 void Proxy::get_handler(Parse request_t, int ID) {
   // std::cout << request_t.request << std::endl;
-  std::cout << "this is  a GET" << std::endl;
+
   const char *port = request_t.port.c_str();
   const char *host_name = request_t.hostname.c_str();
   int server_fd = set_client(host_name, port);
@@ -199,9 +197,9 @@ void Proxy::get_handler(Parse request_t, int ID) {
     close(server_fd);
     return;
   }
-  std::cout << "reach log" << std::endl;
+
   std::ofstream file;
-  file.open("proxy.log", std::ios::app);
+  file.open("/var/log/erss/proxy.log", std::ios::app);
   file << ID << ": Requesting \"" << request_t.header << "\" from "
        << request_t.hostname << std::endl;
   file.close();
@@ -219,11 +217,10 @@ void Proxy::get_handler(Parse request_t, int ID) {
     if (send(client_fd, buff, max_len, MSG_NOSIGNAL) < 0) {
       error_check(ID, 2);
       close(server_fd);
-      std::cout << "&&&&&&&&&send return" << std::endl;
+
       return;
     }
   }
-  std::cout << "repsonse_line is " << response_line << std::endl;
   // std::cout << "response  is " << response << std::endl;
 
   // Cache block1;
@@ -255,7 +252,7 @@ void Proxy::connect_handler(Parse request_t, int ID) {
   int server_fd = set_client(host_name, port);
 
   std::ofstream file;
-  file.open("proxy.log", std::ios::app);
+  file.open("/var/log/erss/proxy.log", std::ios::app);
   file << ID << "Responding \"HTTP/1.1 200 OK\" " << std::endl;
   file.close();
 

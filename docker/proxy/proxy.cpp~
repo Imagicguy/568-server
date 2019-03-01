@@ -1,33 +1,35 @@
 #include "proxy.h"
 #include "main.h"
 #include "parse.h"
+extern std::unordered_map<std::string, finalResponse> cache;
+
 void process(int ID);
 void error_check(int &ID, int error);
 void set_client(const char *hostname, const char *port);
-extern std::unordered_map<std::string, finalResponse> cache;
+
 void Proxy::error_check(int &ID, int error) {
   std::ofstream file;
 
   file.open("proxy.log", std::ios::app);
   switch (error) {
-  case 100: {
-    file << ID << " : "
+  case 1: {
+    /*file << ID << " : "
          << "ERROR recv() failed!" << std::endl;
-    file.close();
+         file.close();*/
     break;
   }
 
   case 2: {
-    file << ID << " : "
+    /*file << ID << " : "
          << "ERROR send() failed!" << std::endl;
-    file.close();
+         file.close();*/
     break;
   }
 
   case 3: {
-    file << ID << " : "
+    /*file << ID << " : "
          << "ERROR select() failed!" << std::endl;
-    file.close();
+         file.close();*/
     break;
   }
 
@@ -124,13 +126,10 @@ void Proxy::process(int ID) {
   std::string temp2(buffer);
   if (temp2.find("Content-Length") != std::string::npos) {
 
-    int start = texmp2.find("Content-Length: ") + 16;
+    int start = temp2.find("Content-Length: ") + 16;
     std::string temp3 = temp2.substr(start);
     temp3 = temp3.substr(0, temp2.find("\r\n"));
     int length = atoi(temp3.c_str());
-    if (length < 0) {
-      error_check(ID, 411);
-    }
     if ((max_len = recv(client_fd, p, length, 0)) < 0) {
       error_check(ID, 1);
     }
@@ -187,15 +186,10 @@ void Proxy::get_handler(Parse request_t, int ID) {
   const char *port = request_t.port.c_str();
   const char *host_name = request_t.hostname.c_str();
   int server_fd = set_client(host_name, port);
-
   Cache block;
+  // block.init_checkcache(request_t.request, ID, client_fd, server_fd, cache);
+  // block.checkcache();
 
-  block.init_cache(request_t.request);
-  /*  if (block.checkcache(cache)) {
-    // revalidation
-  } else {
-    // send
-    }*/
   request_t.request.replace(request_t.request.find("keep-alive"), 10, "closed");
   // std::cout << "request is " << request_t.request << std::endl;
 
@@ -207,7 +201,7 @@ void Proxy::get_handler(Parse request_t, int ID) {
   }
   std::cout << "reach log" << std::endl;
   std::ofstream file;
-  file.open("proxy.log", std::ios::app);
+  file.open("/var/log/erss/proxy.log", std::ios::app);
   file << ID << ": Requesting \"" << request_t.header << "\" from "
        << request_t.hostname << std::endl;
   file.close();
@@ -231,24 +225,29 @@ void Proxy::get_handler(Parse request_t, int ID) {
   }
   std::cout << "repsonse_line is " << response_line << std::endl;
   // std::cout << "response  is " << response << std::endl;
-  std::string age = "";
-  std::string expires = "";
-  std::string cache_control = "";
-  if (response.find("Age: ") != std::string::npos) {
-    age = response.substr(response.find("Age: ") + 5);
-    age = age.substr(0, age.find("\r\n"));
-  }
-  if (response.find("Expires: ") != std::string::npos) {
-    expires = response.substr(response.find("Expires: ") + 9);
-    expires = expires.substr(0, expires.find("\r\n"));
-  }
-  if (response.find("Cache-control: ") != std::string::npos) {
-    cache_control = response.substr(response.find("Cache-control: ") + 15);
-    cache_control = cache_control.substr(0, cache_control.find("\r\n"));
-  }
-  std::cout << "Age: " << age << std::endl;
-  std::cout << "Expires: " << expires << std::endl;
-  std::cout << "Cache_control: " << cache_control << std::endl;
+
+  // Cache block1;
+  block.init_savecache(response_line, request_t.request, ID, cache);
+  block.savecache();
+  send(client_fd, response_line.c_str(), strlen(response_line.c_str()), 0);
+  // std::string age = "";
+  // std::string expires = "";
+  // std::string cache_control = "";
+  // if (response.find("Age: ") != std::string::npos) {
+  // age = response.substr(response.find("Age: ") + 5);
+  // age = age.substr(0, age.find("\r\n"));
+  //}
+  // if (response.find("Expires: ") != std::string::npos) {
+  // expires = response.substr(response.find("Expires: ") + 9);
+  // expires = expires.substr(0, expires.find("\r\n"));
+  //}
+  // if (response.find("Cache-control: ") != std::string::npos) {
+  // cache_control = response.substr(response.find("Cache-control: ") + 15);
+  // cache_control = cache_control.substr(0, cache_control.find("\r\n"));
+  //}
+  // std::cout << "Age: " << age << std::endl;
+  // std::cout << "Expires: " << expires << std::endl;
+  // std::cout << "Cache_control: " << cache_control << std::endl;
 }
 void Proxy::connect_handler(Parse request_t, int ID) {
   const char *port = request_t.port.c_str();
@@ -256,7 +255,7 @@ void Proxy::connect_handler(Parse request_t, int ID) {
   int server_fd = set_client(host_name, port);
 
   std::ofstream file;
-  file.open("proxy.log", std::ios::app);
+  file.open("/var/log/erss/proxy.log", std::ios::app);
   file << ID << "Responding \"HTTP/1.1 200 OK\" " << std::endl;
   file.close();
 

@@ -252,5 +252,3 @@ bool Cache::checkcache(unordered_map<string, finalResponse> cache) {
        << "not in cache" << endl;
   return true;
 }
-
-void Cache::init_cache() {}

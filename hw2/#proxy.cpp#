@@ -124,7 +124,7 @@ void Proxy::process(int ID) {
   std::string temp2(buffer);
   if (temp2.find("Content-Length") != std::string::npos) {
 
-    int start = temp2.find("Content-Length: ") + 16;
+    int start = texmp2.find("Content-Length: ") + 16;
     std::string temp3 = temp2.substr(start);
     temp3 = temp3.substr(0, temp2.find("\r\n"));
     int length = atoi(temp3.c_str());

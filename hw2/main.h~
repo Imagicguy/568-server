@@ -1,5 +1,0 @@
-#ifndef __MAIN_H__
-#define __MAIN_H__
-std::unordered_map<std::string, finalResponse> cache;
-
-#endif

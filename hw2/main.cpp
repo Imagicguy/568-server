@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include <vector>
 // socket proxy  parse request
-
+std::unordered_map<std::string, finalResponse> cache;
 void Processes(Proxy arg, int ID);
 
 int main() {

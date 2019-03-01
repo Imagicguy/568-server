@@ -1213,3 +1213,109 @@
 32: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
 34Responding "HTTP/1.1 200 OK" 
 36: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+9Responding "HTTP/1.1 200 OK" 
+10Responding "HTTP/1.1 200 OK" 
+14Responding "HTTP/1.1 200 OK" 
+15Responding "HTTP/1.1 200 OK" 
+22Responding "HTTP/1.1 200 OK" 
+21Responding "HTTP/1.1 200 OK" 
+23Responding "HTTP/1.1 200 OK" 
+25: Requesting "GET http://www.ruanyifeng.com/ HTTP/1.1" from www.ruanyifeng.com
+26: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+27: Requesting "GET http://www.ruanyifeng.com/styles.css HTTP/1.1" from www.ruanyifeng.com
+28: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+29: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/theme_scrapbook.css HTTP/1.1" from www.ruanyifeng.com
+30: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_0.png HTTP/1.1" from www.ruanyifeng.com
+32: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_103.jpg HTTP/1.1" from www.ruanyifeng.com
+31: Requesting "GET http://www.ruanyifeng.com/images_pub/pub_311.jpg HTTP/1.1" from www.ruanyifeng.com
+33Responding "HTTP/1.1 200 OK" 
+34: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+20Responding "HTTP/1.1 200 OK" 
+37: Requesting "GET http://www.ruanyifeng.com/blog/ HTTP/1.1" from www.ruanyifeng.com
+36Responding "HTTP/1.1 200 OK" 
+39: Requesting "GET http://www.ruanyifeng.com/blog/mt.js HTTP/1.1" from www.ruanyifeng.com
+40: Requesting "GET http://www.ruanyifeng.com/blog/tooltip.js HTTP/1.1" from www.ruanyifeng.com
+43: Requesting "GET http://www.ruanyifeng.com/blog/stats.js HTTP/1.1" from www.ruanyifeng.com
+44: Requesting "GET http://www.ruanyifeng.com/blog/images/person2_s.jpg HTTP/1.1" from www.ruanyifeng.com
+41Responding "HTTP/1.1 200 OK" 
+42Responding "HTTP/1.1 200 OK" 
+45: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/images/top_search_submit.gif HTTP/1.1" from www.ruanyifeng.com
+47: Requesting "GET http://www.ruanyifeng.com/blog/bt.css HTTP/1.1" from www.ruanyifeng.com
+46Responding "HTTP/1.1 200 OK" 
+50: Requesting "GET http://www.ruanyifeng.com/static/themes/theme_scrapbook/images/searchtop.gif HTTP/1.1" from www.ruanyifeng.com
+51Responding "HTTP/1.1 200 OK" 
+52Responding "HTTP/1.1 200 OK" 
+55Responding "HTTP/1.1 200 OK" 
+57Responding "HTTP/1.1 200 OK" 
+59Responding "HTTP/1.1 200 OK" 
+60Responding "HTTP/1.1 200 OK" 
+73Responding "HTTP/1.1 200 OK" 
+65Responding "HTTP/1.1 200 OK" 
+63Responding "HTTP/1.1 200 OK" 
+61Responding "HTTP/1.1 200 OK" 
+67Responding "HTTP/1.1 200 OK" 
+62Responding "HTTP/1.1 200 OK" 
+64Responding "HTTP/1.1 200 OK" 
+66Responding "HTTP/1.1 200 OK" 
+68Responding "HTTP/1.1 200 OK" 
+70Responding "HTTP/1.1 200 OK" 
+69Responding "HTTP/1.1 200 OK" 
+71Responding "HTTP/1.1 200 OK" 
+74Responding "HTTP/1.1 200 OK" 
+81Responding "HTTP/1.1 200 OK" 
+75Responding "HTTP/1.1 200 OK" 
+82Responding "HTTP/1.1 200 OK" 
+83Responding "HTTP/1.1 200 OK" 
+84Responding "HTTP/1.1 200 OK" 
+85Responding "HTTP/1.1 200 OK" 
+86Responding "HTTP/1.1 200 OK" 
+95Responding "HTTP/1.1 200 OK" 
+97Responding "HTTP/1.1 200 OK" 
+96Responding "HTTP/1.1 200 OK" 
+100Responding "HTTP/1.1 200 OK" 
+101Responding "HTTP/1.1 200 OK" 
+102Responding "HTTP/1.1 200 OK" 
+104Responding "HTTP/1.1 200 OK" 
+105Responding "HTTP/1.1 200 OK" 
+106Responding "HTTP/1.1 200 OK" 
+107Responding "HTTP/1.1 200 OK" 
+108Responding "HTTP/1.1 200 OK" 
+109Responding "HTTP/1.1 200 OK" 
+110Responding "HTTP/1.1 200 OK" 
+111Responding "HTTP/1.1 200 OK" 
+112Responding "HTTP/1.1 200 OK" 
+113Responding "HTTP/1.1 200 OK" 
+114Responding "HTTP/1.1 200 OK" 
+116Responding "HTTP/1.1 200 OK" 
+115Responding "HTTP/1.1 200 OK" 
+118Responding "HTTP/1.1 200 OK" 
+117Responding "HTTP/1.1 200 OK" 
+119Responding "HTTP/1.1 200 OK" 
+120Responding "HTTP/1.1 200 OK" 
+1: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+2Responding "HTTP/1.1 200 OK" 
+4Responding "HTTP/1.1 200 OK" 
+5Responding "HTTP/1.1 200 OK" 
+6Responding "HTTP/1.1 200 OK" 
+7Responding "HTTP/1.1 200 OK" 
+3Responding "HTTP/1.1 200 OK" 
+8Responding "HTTP/1.1 200 OK" 
+13Responding "HTTP/1.1 200 OK" 
+18Responding "HTTP/1.1 200 OK" 
+19Responding "HTTP/1.1 200 OK" 
+20Responding "HTTP/1.1 200 OK" 
+16Responding "HTTP/1.1 200 OK" 
+23Responding "HTTP/1.1 200 OK" 
+26Responding "HTTP/1.1 200 OK" 
+25Responding "HTTP/1.1 200 OK" 
+24Responding "HTTP/1.1 200 OK" 
+31: Requesting "GET http://download.mozilla.org/?product=firefox-65.0.2-partial-65.0.1&os=win64&lang=zh-CN&force=1 HTTP/1.1" from download.mozilla.org
+33Responding "HTTP/1.1 200 OK" 
+35: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com

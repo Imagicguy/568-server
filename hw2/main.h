@@ -3,5 +3,5 @@
 #include "response.h"
 #include <stdlib.h>
 #include <unordered_map>
-std::unordered_map<std::string, finalResponse> cache;
+// std::unordered_map<std::string, finalResponse> cache;
 #endif

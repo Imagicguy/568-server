@@ -1,0 +1,165 @@
+0: GET http://www.ruanyifeng.com/home.html HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:38 2019
+0: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+0: Received "HTTP/1.1 304 Not Modified" from www.ruanyifeng.com
+0: Responding "HTTP/1.1 304 Not Modified"
+1: GET http://www.ruanyifeng.com/mt.js HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:38 2019
+1: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+1: Received "HTTP/1.1 200 OK" from www.ruanyifeng.com
+1: Responding "HTTP/1.1 200 OK"
+2: CONNECT www.bbc.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:58 2019
+2: NOTE setting up turnel
+3: CONNECT nav.files.bbci.co.uk:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:58 2019
+4: CONNECT mybbc.files.bbci.co.uk:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:58 2019
+5: CONNECT static.bbci.co.uk:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:58 2019
+3: NOTE setting up turnel
+5: NOTE setting up turnel
+4: NOTE setting up turnel
+6: CONNECT static.bbc.co.uk:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+6: NOTE setting up turnel
+7: CONNECT bbc.gscontxt.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+8: CONNECT tags.crwdcntrl.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+9: CONNECT ad.crwdcntrl.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+10: CONNECT www.googletagservices.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+8: NOTE setting up turnel
+9: NOTE setting up turnel
+10: NOTE setting up turnel
+7: NOTE setting up turnel
+11: POST http://ocsp.godaddy.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+12: CONNECT ichef.bbc.co.uk:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+12: NOTE setting up turnel
+13: CONNECT ssc.api.bbc.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+14: POST http://ocsp2.globalsign.com/gsalphasha2g2 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:21:59 2019
+13: NOTE setting up turnel
+15: CONNECT googleads.g.doubleclick.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+16: CONNECT fig.bbc.co.uk:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+17: CONNECT mybbc-analytics.files.bbci.co.uk:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+16: NOTE setting up turnel
+15: NOTE setting up turnel
+17: NOTE setting up turnel
+18: CONNECT pagead2.googlesyndication.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+19: CONNECT pagead2.googlesyndication.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+18: NOTE setting up turnel
+20: CONNECT pagead2.googlesyndication.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+19: NOTE setting up turnel
+21: CONNECT pagead2.googlesyndication.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+20: NOTE setting up turnel
+21: NOTE setting up turnel
+22: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+23: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:00 2019
+24: CONNECT tiles.services.mozilla.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:02 2019
+25: CONNECT safebrowsing.googleapis.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:02 2019
+25: NOTE setting up turnel
+24: NOTE setting up turnel
+26: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:02 2019
+27: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:02 2019
+28: CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:03 2019
+28: NOTE setting up turnel
+29: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:04 2019
+29: NOTE setting up turnel
+30: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:04 2019
+31: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:04 2019
+31: NOTE setting up turnel
+32: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:04 2019
+33: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:04 2019
+33: NOTE setting up turnel
+34: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:04 2019
+34: NOTE setting up turnel
+35: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:07 2019
+35: NOTE setting up turnel
+36: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:07 2019
+37:  from 10.197.95.69 @ Wed Mar 20 13:22:14 2019
+39:  from 10.197.95.69 @ Wed Mar 20 13:22:15 2019
+40: CONNECT adservice.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:15 2019
+38:  from 10.197.95.69 @ Wed Mar 20 13:22:15 2019
+40: NOTE setting up turnel
+41: GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:28 2019
+41: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+41: Received "HTTP/1.1 200 OK" from www.ruanyifeng.com
+41: Responding "HTTP/1.1 200 OK"
+42: GET http://detectportal.firefox.com/success.txt HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:40 2019
+42: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+43: CONNECT start.firefoxchina.cn:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:40 2019
+43: NOTE setting up turnel
+44: CONNECT tiles.services.mozilla.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+45: CONNECT tiles.services.mozilla.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+46: CONNECT tiles.services.mozilla.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+47: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+48: CONNECT tiles.services.mozilla.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+46: NOTE setting up turnel
+45: NOTE setting up turnel
+44: NOTE setting up turnel
+48: NOTE setting up turnel
+49: CONNECT tiles.services.mozilla.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+50: CONNECT services.addons.mozilla.org:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+49: NOTE setting up turnel
+50: NOTE setting up turnel
+51: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+53: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+54: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+52: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+55: CONNECT safebrowsing.googleapis.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:41 2019
+55: NOTE setting up turnel
+56: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:42 2019
+56: NOTE setting up turnel
+57: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:43 2019
+57: NOTE setting up turnel
+58: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:43 2019
+59: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:43 2019
+60: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:43 2019
+61: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:43 2019
+62: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:43 2019
+63: CONNECT start.firefoxchina.cn:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:44 2019
+64: CONNECT static.firefoxchina.cn:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:44 2019
+65: CONNECT start.firefoxchina.cn:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:44 2019
+63: NOTE setting up turnel
+65: NOTE setting up turnel
+66: CONNECT hm.baidu.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:44 2019
+66: NOTE setting up turnel
+67: POST http://ocsp2.globalsign.com/gsorganizationvalsha2g2 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:45 2019
+68: GET http://detectportal.firefox.com/success.txt HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:45 2019
+68: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+64: NOTE setting up turnel
+69: GET http://www.ruanyifeng.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:46 2019
+69: Requesting "GET http://www.ruanyifeng.com/ HTTP/1.1" from www.ruanyifeng.com
+69: Received "HTTP/1.1 302 Found" from www.ruanyifeng.com
+69: Responding "HTTP/1.1 302 Found"
+70: GET http://detectportal.firefox.com/success.txt HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:50 2019
+70: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+71: CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:53 2019
+72: CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:53 2019
+72: NOTE setting up turnel
+71: NOTE setting up turnel
+73: CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:53 2019
+73: NOTE setting up turnel
+74: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:53 2019
+75: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:53 2019
+76: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:53 2019
+77: POST http://ocsp.digicert.com/ HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:53 2019
+78: GET http://detectportal.firefox.com/success.txt HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:55 2019
+78: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+79: CONNECT snippets.cdn.mozilla.net:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:22:56 2019
+79: NOTE setting up turnel
+80: GET http://detectportal.firefox.com/success.txt HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:00 2019
+80: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+81: CONNECT www.google.com:443 HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:01 2019
+81: NOTE setting up turnel
+82: GET http://www.ruanyifeng.com/home.html HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:02 2019
+82: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+82: Received "HTTP/1.1 400 Bad Request" from www.ruanyifeng.com
+82: Responding "HTTP/1.1 400 Bad Request"
+83: GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:02 2019
+83: Requesting "GET http://www.ruanyifeng.com/favicon.ico HTTP/1.1" from www.ruanyifeng.com
+83: Received "HTTP/1.1 200 OK" from www.ruanyifeng.com
+83: Responding "HTTP/1.1 200 OK"
+84: GET http://detectportal.firefox.com/success.txt HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:05 2019
+84: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+85: GET http://www.ruanyifeng.com/home.html HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:11 2019
+85: Requesting "GET http://www.ruanyifeng.com/home.html HTTP/1.1" from www.ruanyifeng.com
+85: Received "HTTP/1.1 200 OK" from www.ruanyifeng.com
+85: Responding "HTTP/1.1 200 OK"
+86: GET http://www.ruanyifeng.com/mt.js HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:12 2019
+86: Requesting "GET http://www.ruanyifeng.com/mt.js HTTP/1.1" from www.ruanyifeng.com
+86: Received "HTTP/1.1 200 OK" from www.ruanyifeng.com
+86: Responding "HTTP/1.1 200 OK"
+87: GET http://detectportal.firefox.com/success.txt HTTP/1.1 from 10.197.95.69 @ Wed Mar 20 13:23:40 2019
+87: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com

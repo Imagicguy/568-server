@@ -1,0 +1,198 @@
+Test Cases:
+
+Example.com  (GET)
+Input: Type Example.com in the browser:
+Output: successfully loaded the website. 
+Log: 
+2: GET http://example.com/ HTTP/1.1 from 10.198.128.163 @ Wed Feb 27 22:53:05 2019
+2: Requesting "GET http://example.com/ HTTP/1.1" from example.com
+2: Received "HTTP/1.1 200 OK" from example.com
+
+
+Input2: Type Example.com in the browser:
+Output: successfully loaded the website from cache. 
+Log: 
+6: GET http://example.com/ HTTP/1.1 from 10.198.128.163 @ Wed Feb 27 23:17:45 2019
+6: Requesting "GET http://example.com/ HTTP/1.1" from example.com
+6: Received "HTTP/1.1 200 OK" from example.com
+6: Responding "HTTP/1.1 200 OK"
+
+
+
+
+
+2.   Google.com (CONNECT, POST)
+Input: Type Google.com in the browser:
+Output: successfully loaded the website. 
+Log: 
+0: CONNECT www.google.com:443 HTTP/1.1 from 10.197.144.137 @ Wed Feb 27 22:56:09 2019
+0: NOTE setting up turnel
+1: CONNECT ssl.gstatic.com:443 HTTP/1.1 from 10.197.144.137 @ Wed Feb 27 22:56:12 2019
+1: NOTE setting up turnel
+2: CONNECT www.gstatic.com:443 HTTP/1.1 from 10.197.144.137 @ Wed Feb 27 22:56:12 2019
+2: NOTE setting up turnel
+3: CONNECT apis.google.com:443 HTTP/1.1 from 10.197.144.137 @ Wed Feb 27 22:56:12 2019
+3: NOTE setting up turnel
+4: CONNECT adservice.google.com:443 HTTP/1.1 from 10.197.144.137 @ Wed Feb 27 22:56:12 2019
+4: NOTE setting up turnel
+5: POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1 from 10.197.144.137 @ Wed Feb 27 22:56:13 2019
+
+
+3.http://people.duke.edu/~bmr23/ece568/class.html (GET)
+Input: Type http://people.duke.edu/~bmr23/ece568/class.html  in the browser:
+Output: successfully loaded the website. 
+Log:
+35: GET http://people.duke.edu/~bmr23/ece568/class.html HTTP/1.1 from 10.198.128.163 @ Wed Feb 27 23:05:50 2019
+35: Requesting "GET http://people.duke.edu/~bmr23/ece568/class.html HTTP/1.1" from people.duke.edu
+35: Received "HTTP/1.1 200 OK" from people.duke.edu
+35: Responding "HTTP/1.1 200 OK"
+36: GET http://people.duke.edu/~bmr23/style.css HTTP/1.1 from 10.198.128.163 @ Wed Feb 27 23:05:51 2019
+36: Requesting "GET http://people.duke.edu/~bmr23/style.css HTTP/1.1" from people.duke.edu
+36: Received "HTTP/1.1 200 OK" from people.duke.edu
+36: Responding "HTTP/1.1 200 OK"
+37: GET http://people.duke.edu/favicon.ico HTTP/1.1 from 10.198.128.163 @ Wed Feb 27 23:05:51 2019
+37: Requesting "GET http://people.duke.edu/favicon.ico HTTP/1.1" from people.duke.edu
+37: Received "HTTP/1.1 404 Not Found" from people.duke.edu
+37: Responding "HTTP/1.1 404 Not Found"
+
+
+
+4. Taobao.com (CONNECT,GET,POST)
+Input: Type world.taobao.com in the browser:
+Output: successfully loaded the website. 
+Log: 
+0: "CONNECT world.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:23 2019
+0: NOTE setting up turnel
+1: "CONNECT g.alicdn.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:24 2019
+1: NOTE setting up turnel
+2: "CONNECT img.alicdn.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:24 2019
+3: "CONNECT gw.alicdn.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:24 2019
+4: "CONNECT ws.mmstat.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:24 2019
+5: "CONNECT log.mmstat.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:24 2019
+2: NOTE setting up turnel
+3: NOTE setting up turnel
+4: NOTE setting up turnel
+5: NOTE setting up turnel
+6: "CONNECT ws.mmstat.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:25 2019
+6: NOTE setting up turnel
+7: "CONNECT pcookie.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+8: "CONNECT pcookie.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+9: "CONNECT wwc.alicdn.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+10: "CONNECT cart.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+11: "CONNECT ju.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+12: "CONNECT tui.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+13: "CONNECT ald.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+14: "CONNECT h5api.m.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:26 2019
+14: NOTE setting up turnel
+11: NOTE setting up turnel
+8: NOTE setting up turnel
+7: NOTE setting up turnel
+12: NOTE setting up turnel
+9: NOTE setting up turnel
+10: NOTE setting up turnel
+13: NOTE setting up turnel
+15: "CONNECT gm.mmstat.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:27 2019
+15: NOTE setting up turnel
+16: "CONNECT www.googletagmanager.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+17: "CONNECT connect.facebook.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+17: NOTE setting up turnel
+16: NOTE setting up turnel
+18: "CONNECT www.googleadservices.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+18: NOTE setting up turnel
+19: "CONNECT www.facebook.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+20: "POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+19: NOTE setting up turnel
+21: "CONNECT ocservice.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+22: "CONNECT count.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+23: "CONNECT tce.alicdn.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:28 2019
+23: NOTE setting up turnel
+21: NOTE setting up turnel
+22: NOTE setting up turnel
+24: "CONNECT login.taobao.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:30 2019
+25: "CONNECT bid.g.doubleclick.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:30 2019
+25: NOTE setting up turnel
+26: "POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:31 2019
+27: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:31 2019
+27: NOTE setting up turnel
+28: "POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:31 2019
+24: NOTE setting up turnel
+29: "CONNECT pass.tmall.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:32 2019
+29: NOTE setting up turnel
+30: "POST http://ocsp2.globalsign.com/gsorganizationvalsha2g2 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:33 2019
+31: "CONNECT www.google.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:33 2019
+31: NOTE setting up turnel
+32: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:33 2019
+32: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+33: "CONNECT www.tmall.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:13:35 2019
+33: NOTE setting up turnel
+
+
+
+5. YouTube.com (GET,CONNECT,POST)
+Input: Type YouTube.com in the browser:
+Output: successfully loaded the website. 
+Log: 
+0: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:32 2019
+0: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+1: "CONNECT tiles.services.mozilla.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:34 2019
+1: NOTE setting up turnel
+2: "CONNECT tiles.services.mozilla.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:34 2019
+3: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:34 2019
+3: NOTE setting up turnel
+2: NOTE setting up turnel
+4: "POST http://ocsp.digicert.com/ HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:34 2019
+5: "POST http://ocsp.digicert.com/ HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:34 2019
+6: "CONNECT www.youtube.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:36 2019
+6: NOTE setting up turnel
+7: "CONNECT fonts.googleapis.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+7: NOTE setting up turnel
+9: "CONNECT s.ytimg.com:443 HTTP/1.1" from 10.197.144.137 @ 8: "CONNECT yt3.ggpht.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+8: NOTE setting up turnel
+10: "CONNECT fonts.gstatic.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+11: "CONNECT accounts.google.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+10: NOTE setting up turnel
+11: NOTE setting up turnel
+12: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+12: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+13: "CONNECT i.ytimg.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+13: NOTE setting up turnel
+14: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+14: NOTE setting up turnel
+15: "CONNECT pubads.g.doubleclick.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:37 2019
+15: NOTE setting up turnel
+9: NOTE setting up turnel
+16: "CONNECT www.google.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:38 2019
+16: NOTE setting up turnel
+17: "POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:38 2019
+18: "CONNECT ad.doubleclick.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:40 2019
+19: "CONNECT securepubads.g.doubleclick.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:40 2019
+19: NOTE setting up turnel
+18: NOTE setting up turnel
+20: "POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:40 2019
+21: "CONNECT secure.insightexpressai.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:40 2019
+21: NOTE setting up turnel
+22: "CONNECT static.doubleclick.net:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:42 2019
+22: NOTE setting up turnel
+23: "POST http://ocsp.pki.goog/GTSGIAG3 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:42 2019
+24: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:42 2019
+24: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+25: "CONNECT r3---sn-hjoj-gq0e.googlevideo.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:42 2019
+26: "CONNECT r3---sn-hjoj-gq0e.googlevideo.com:443 HTTP/1.1" from 10.197.144.137 @ Wed Feb 27 23:08:42 2019
+25: NOTE setting up turnel
+26: NOTE setting up turnel
+
+
+
+
+6. http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx(Chunked GET)
+Input: type the above URL
+Output: successful got the picture
+Log:
+153: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1 from 10.198.128.163 @ Wed Feb 27 23:13:10 2019
+153: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+153: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+153: Responding "HTTP/1.1 200 OK"
+					
+
+
+

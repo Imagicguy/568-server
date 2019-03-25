@@ -31,7 +31,7 @@ int main() {
     std::string ip;
     ip = inet_ntoa(((struct sockaddr_in *)&socket_addr)->sin_addr);
 
-    Request request();
+    XML request();
     std::thread(Processes, request, id).detach();
   }
 }

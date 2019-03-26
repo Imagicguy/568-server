@@ -6,11 +6,32 @@ void generate_response() {}
 void handle_order(connection *C, XML xml) {}
 
 void create_account(connection *C, XML xml) {
-  std::string order;
-  generate_response();
+  // account_id ,balance
+  work query(*C);
+  std::string response;
+  std::string sql =
+      "SELECT * FROM ACCOUNT WHERE (ACCOUNT_ID ==" + to_string(account_id) +
+      ");";
+  result read(query.exec(sql));
+  if (read == NULL) {
+    std::string order = "INSERT INTO ACCOUNT (ACCOUNT_ID,BALANCE) "
+                        "VALUES (" +
+                        to_string(account_id) + ", " + to_string(balance) +
+                        ");";
+    response = "<created id=\""
+               ";
+        generate_response();
+  } else {
+    response = "<error id=\"" + to_string(account_id) +
+               "\">Account already existed<//error> ";
+  }
 }
 
-void create_sym(connection *C, XML xml) { generate_response(); }
+void change_balance(connection *C, XML xml) {}
+void create_sym(connection *C, XML xml) {
+  std::string sym;
+  generate_response();
+}
 
 void insert_order(connection *C, XML xml) {
   generate_response();

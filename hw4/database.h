@@ -11,8 +11,8 @@ using namespace std;
 using namespace pqxx;
 
 void resetTable(connection *C);
-void create_account(connection *C, XML xml);
-void create_sym(connection *C);
+std::string create_account(connection *C, XML xml);
+std::string create_sym(connection *C);
 
 // void insertTable(connection *C);
 #endif

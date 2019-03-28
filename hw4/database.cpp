@@ -65,17 +65,31 @@ std::string change_balance(connection *C, int account_id) {
   }
 }
 
+bool check_acc_id(connection *C, int account_id) {
+  std::string sql =
+      "SELECT * FROM SYM WHERE (ACCOUNT_ID =" + to_string(account_id) + " )";
+  work R(*C);
+  result read(R.exec(sql));
+  if (read.empty()) {
+    // response = "<error id= \"" + to_string(account_id) + "\" SYM = \'" + sym
+    // +
+    //         " \'>Account doesnt exist<//error> ";
+    return false;
+  }
+  return true;
+}
+
 std::string create_sym(connection *C, XML xml) {
 
   std::string sym = "";
   std::string response;
   int account_id = 0;
   int num = 0;
-  std::string sql =
-      "SELECT * FROM SYM WHERE (ACCOUNT_ID =" + to_string(account_id) + " )";
+  std::string sql = "";
+
   work R(*C);
-  result read(R.exec(sql));
-  if (read.empty()) {
+
+  if (!check_acc_id(C, account_id)) {
     response = "<error id= \"" + to_string(account_id) + "\" SYM = \'" + sym +
                " \'>Account doesnt exist<//error> ";
     return response;
@@ -89,7 +103,7 @@ std::string create_sym(connection *C, XML xml) {
     R.exec(sql);
     R.commit();
   } else {
-    result::const_iterator it = read.begin();
+    result::const_iterator it = read_sym.begin();
     it++;
     num += it[1].as<int>();
     sql = "UPDATE SYM SET SYM = " + to_string(num) + " WHERE SYM = \'" +
@@ -101,7 +115,21 @@ std::string create_sym(connection *C, XML xml) {
       "<created id= \"" + to_string(account_id) + "\" sym = \"" + sym + "\">";
   return response;
 }
-bool check_acc_id(connection *C, int account_id) {}
+std::string pair_order(connection *C) {
+  int account_id = 0;
+  std::string sym = "", sql = "".response = "";
+  double amount = 0;
+  double limit = 0;
+  if (amount > 0) {
+    // it is buy ,check all opened order amount < 0
+    // put executed into EXECUTE
+  } else if (amount < 0) {
+    // it is sell,check all opened order amount > 0
+  } else {
+    // amount = 0 is not allowed.
+    // put executed into EXECUTE
+  }
+}
 std::string insert_order(connection *C, XML xml) {
   int account_id = 0;
   std::string sym = "";
@@ -111,7 +139,8 @@ std::string insert_order(connection *C, XML xml) {
   if (check_acc_id(C, account_id)) {
     response = change_balance(C, account_id);
     if (response == "succeed") {
-      handle_order(C);
+      // give it trans_id
+      pair_order();
     } else {
       return response;
     }
@@ -122,8 +151,13 @@ std::string insert_order(connection *C, XML xml) {
     return response;
   }
 }
-
-void query_order(connection *C, int trans_id) {}
+void cancel_trans(connection *C, int trans_id) {
+  // select all order with trans_id in OPENED and cancel it
+}
+void query_order(connection *C, int trans_id) {
+  // select all order with trans_id in OPENED,EXECUTED and CANCELED and return
+  // it
+}
 
 void cleanTable(connection *C) {
   if (C->is_open()) {

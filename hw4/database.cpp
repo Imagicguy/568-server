@@ -20,7 +20,7 @@ void initTable(connection *C) {
   std::string accountTable, symTable, openTable, canceledTable, executedTable;
   accountTable = "CREATE TABLE ACCOUNT("
                  "ACCOUNT_ID    INT PRIMARY KEY              NOT NULL,"
-                 "BALANCE       INT                          NOT NULL);";
+                 "BALANCE       DOUBLE PRECISION             NOT NULL);";
 
   symTable = "CREATE TABLE SYM("
              "ACCOUNT_ID INT REFERENCES ACCOUNT(ACCOUNT_ID)  NOT NULL,"
@@ -30,18 +30,18 @@ void initTable(connection *C) {
   openTable = "CREATE TABLE OPEN("
               "TRANS_ID  INT PRIMARY KEY                     NOT NULL,"
               "SYM       TEXT                                NOT NULL,"
-              "AMOUNT    INT                                 NOT NULL,"
-              "LIMIT     INT                                 NOT NULL,"
+              "AMOUNT    DOUBLE PRECISION                    NOT NULL,"
+              "LIMIT     DOUBLE PRECISION                    NOT NULL,"
               "SHARES    INT                                 NOT NULL);";
   canceledTable = "CREATE TABLE CANCELED("
                   "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
                   "SHARES   INT                              NOT NULL,"
-                  "TIME     INT                              NOT NULL);";
+                  "TIME     TIMESTAMP                        NOT NULL);";
   executedTable = "CREATE TABLE EXECUTED("
                   "PRICE    INT                              NOT NULL,"
                   "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
                   "SHARES   INT                              NOT NULL,"
-                  "TIME     INT                              NOT NULL);";
+                  "TIME     TIMESTAMP                        NOT NULL);";
 
   work createTable(*C);
   createTable.exec(accountTable);

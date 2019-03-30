@@ -1,10 +1,7 @@
 #include "create.h"
 
-std::string create_account(connection *C) {
-  // account_id ,balance
+std::string create_account(connection *C, int account_id, int balance) {
   work query(*C);
-  int account_id = 0;
-  int balance = 0;
   std::string response;
   if (balance < 0) {
     response = "<error id= \"" + to_string(account_id) +
@@ -44,12 +41,9 @@ bool check_acc_id(connection *C, int account_id) {
   return true;
 }
 
-std::string create_sym(connection *C) {
-
-  std::string sym = "";
+std::string create_sym(connection *C, std::string sym, int account_id,
+                       int num) {
   std::string response;
-  int account_id = 0;
-  int num = 0;
   std::string sql = "";
 
   work R(*C);

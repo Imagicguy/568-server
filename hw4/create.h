@@ -8,7 +8,7 @@
 
 using namespace std;
 using namespace pqxx;
-std::string create_account(connection *C);
+std::string create_account(connection *C, int account_id, int balance);
 bool check_acc_id(connection *C, int account_id);
-std::string create_sym(connection *C);
+std::string create_sym(connection *C, std::string sym, int account_id, int num);
 #endif

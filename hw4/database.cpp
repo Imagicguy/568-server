@@ -30,7 +30,6 @@ void initTable(connection *C) {
   openTable = "CREATE TABLE OPEN("
               "TRANS_ID  INT PRIMARY KEY                     NOT NULL,"
               "SYM       TEXT                                NOT NULL,"
-              "AMOUNT    DOUBLE PRECISION                    NOT NULL,"
               "LIMIT     DOUBLE PRECISION                    NOT NULL,"
               "SHARES    INT                                 NOT NULL);";
   canceledTable = "CREATE TABLE CANCELED("

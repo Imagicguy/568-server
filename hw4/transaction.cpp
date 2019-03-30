@@ -1,5 +1,5 @@
 #include "transaction.h"
-
+#include <vector>
 void handle_order(connection *C) {}
 
 std::string reduce_balance(connection *C, int account_id, double change) {
@@ -107,10 +107,66 @@ std::string insert_order(connection *C) {
   // time_record
   pair_order();
 }
-void cancel_trans(connection *C, int trans_id) {
-  // select all order with trans_id in OPENED and cancel it
+std::vector<std::string> cancel_trans(connection *C, int trans_id) {
+  std::string sql =
+      "SELECT * FROM OPEN WHERE TRANS_ID =" + to_string(trans_id) + "; ";
+  work query(*C); // select all order with trans_id in OPENED and cancel it
+  result read(query.exec(sql));
+  std::vector<std::string> responses;
+  responses.push_back("<canceled id=\"" + to_string(trans_id) + "\">");
+  std::string time = "";
+  work trans(*C);
+  for (result::const_iterator it = read.begin(); it != read.end(); ++it) {
+
+    std::string temp = "<canceled shared= " + to_string(it[3].as<int>()) +
+                       " time=" + time + "/>";
+    responses.push_back(temp);
+    sql = "INSERT INTO CANCENED(TRANS_ID,SHARES,TIME) VALUES(" +
+          to_string(trans_id) + "," + to_string(it[3].as<int>()) + "," + time +
+          " );";
+    trans.exec(sql);
+    // add to canceled
+    // add to responses
+  }
+  trans.commit();
+  sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(trans_id) + ";";
+  work del(*C);
+  del.exec(sql); // delete from open in the end
+  del.commit();
+  responses.push_back("</canceled>");
+  return responses;
 }
-void query_order(connection *C, int trans_id) {
+
+std::vector<std::string> query_trans(connection *C, int trans_id) {
+  std::vector<string> responses;
+  responses.push_back("<status id=\"" + to_string(trans_id) + "\">");
+  std::string sql =
+      "SELECT * FROM OPEN WHERE TRANS_ID=" + to_string(trans_id) + ";";
+  work open_read(*C);
+  result read(open_read.exec(sql));
+  for (result::const_iterator it = read.begin(); it != read.end(); ++it) {
+    std::string temp = "<open shares= " + to_string(it[3].as<int>()) + "/>";
+    responses.push_back(temp);
+  }
+  sql = "SELECT * FROM CANCELED WHERE TRANS_ID=" + to_string(trans_id) + ";";
+  work cancel_read(*C);
+  result read2(cancel_read.exec(sql));
+  for (result::const_iterator it = read2.begin(); it != read2.end(); ++it) {
+    std::string temp = "<canceled shares= " + to_string(it[1].as<int>()) +
+                       " time=" + to_string(it[2].as<int>()) + "/>";
+    responses.push_back(temp);
+  }
+  sql = "SELECT * FROM EXECUTED WHERE TRANS_ID=" + to_string(trans_id) + ";";
+  work executed_read(*C);
+  result read3(executed_read.exec(sql));
+  for (result::const_iterator it = read3.begin(); it != read3.end(); ++it) {
+    std::string temp = "<executed shares= " + to_string(it[2].as<int>()) +
+                       " price=" + to_string(it[0].as<int>()) + "" +
+                       " time=" + to_string(it[3].as<int>()) + "/>";
+    responses.push_back(temp);
+  }
+  responses.push_back("</status>");
+  return responses;
   // select all order with trans_id in OPENED,EXECUTED and CANCELED and return
   // it
   // maybe need a for loop to execute this part

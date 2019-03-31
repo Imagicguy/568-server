@@ -1,14 +1,15 @@
 #include "database.h"
-#include "XML.h"
 
 void cleanTable(connection *C) {
   if (C->is_open()) {
     work dropTable(*C);
-    dropTable.exec("DROP TABLE IF EXISTS ACCOUNT;");
-    dropTable.exec("DROP TABLE IF EXISTS SYM;");
-    dropTable.exec("DROP TABLE IF EXISTS OPEN;");
+
     dropTable.exec("DROP TABLE IF EXISTS CANCELED;");
     dropTable.exec("DROP TABLE IF EXISTS EXECUTED;");
+    dropTable.exec("DROP TABLE IF EXISTS OPEN;");
+    dropTable.exec("DROP TABLE IF EXISTS SYM;");
+    dropTable.exec("DROP TABLE IF EXISTS ACCOUNT;");
+
     dropTable.commit();
 
   } else {
@@ -28,19 +29,21 @@ void initTable(connection *C) {
              "NUM        INT                                 NOT NULL);";
 
   openTable = "CREATE TABLE OPEN("
+              "OPEN_ID   SERIAL INT                          NOT NULL"
               "TRANS_ID  INT PRIMARY KEY                     NOT NULL,"
               "SYM       TEXT                                NOT NULL,"
-              "LIMIT     DOUBLE PRECISION                    NOT NULL,"
+              "LIMI     DOUBLE PRECISION                    NOT NULL,"
               "SHARES    INT                                 NOT NULL);";
   canceledTable = "CREATE TABLE CANCELED("
                   "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
                   "SHARES   INT                              NOT NULL,"
                   "TIME     TIMESTAMP                        NOT NULL);";
-  executedTable = "CREATE TABLE EXECUTED("
-                  "PRICE    INT                              NOT NULL,"
-                  "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
-                  "SHARES   INT                              NOT NULL,"
-                  "TIME     TIMESTAMP                        NOT NULL);";
+  executedTable =
+      "CREATE TABLE EXECUTED("
+      "PRICE    DOUBLE PRECISION                              NOT NULL,"
+      "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
+      "SHARES   INT                              NOT NULL,"
+      "TIME     TIMESTAMP                        NOT NULL);";
 
   work createTable(*C);
   createTable.exec(accountTable);

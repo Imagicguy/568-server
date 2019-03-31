@@ -32,18 +32,50 @@ std::string reduce_balance(connection *C, int account_id, double change) {
     }
   }
 }
-
-std::string pair_order(connection *C) {
-  int account_id = 0;
-  std::string sym = "", sql = "", response = "";
-  double amount = 0;
-  double limit = 0;
+void insert_open(connection *C, int account_id, std::string sym, int amount,
+                 double limit) {
+  std::string sql = "INSERT INTO OPENED(TRANS_ID,SYM,LIMI,SHARES) VALUES(" +
+                    to_string(account_id) + "," + sym + "," + to_string(limit) +
+                    "," + to_string(amount) + ");";
+  work insert(*C);
+  insert.exec(sql);
+  insert.commit();
+}
+void split_open(connection *C, int account_id, std::string sym, int amount,
+                double limit, result read) {}
+std::string pair_order(connection *C, int account_id, std::string sym,
+                       int amount, double limit) {
+  std::string sql = "", response = "";
+  nontransaction query(*C);
   if (amount > 0) {
     // it is buy ,check all opened order amount < 0
     // put executed into EXECUTE
+    sql = "SELECT * FROM OPEN WHERE (SHARES < 0 AND SYM = " + sym +
+          ") ORDER BY LIMI DSC,ID DSC;";
+    result read(query.exec(sql));
+    if (read.size() == 0) {
+      insert_open(C, account_id, sym, amount, limit);
+      response = "no paired";
+      return response;
+    } else {
+      split_open(C, account_id, sym, amount, limit, read);
+    }
   } else if (amount < 0) {
     // it is sell,check all opened order amount > 0
+    sql = "SELECT * FROM OPEN WHERE (SHARES > 0 AND SYM = " + sym +
+          ") ORDER BY LIMI ASC,ID DSC;";
+    result read(query.exec(sql));
+    if (read.size() == 0) {
+      insert_open(C, account_id, sym, amount, limit);
+      response = "no paired";
+      return response;
+    } else {
+      split_open(C, account_id, sym, amount, limit, read);
+    }
   } else {
+    response = "<error id =\"" + to_string(account_id) +
+               "\">Order amount should not be zero</error>";
+    return response;
     // amount = 0 is not allowed.
     // put executed into EXECUTE
   }
@@ -90,11 +122,12 @@ std::string confirm_order(connection *C) {
     return response;
   }
 }
+
 std::string insert_order(connection *C) {
   int account_id = 0;
   std::string sym = "";
   std::string response;
-  double amount = 0;
+  int amount = 0;
   double limit = 0;
   if (!check_acc_id(C, account_id)) {
     response = "<error sym= \"" + sym + "\" amount= \"" + to_string(amount) +
@@ -105,7 +138,8 @@ std::string insert_order(connection *C) {
   if ((response = confirm_order(C)) != "succeed")
     return response;
   // time_record
-  pair_order();
+
+  pair_order(C, account_id, sym, amount, limit);
 }
 std::vector<std::string> cancel_trans(connection *C, int trans_id) {
   std::string sql =

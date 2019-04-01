@@ -29,7 +29,7 @@ void initTable(connection *C) {
              "NUM        INT                                 NOT NULL);";
 
   openTable = "CREATE TABLE OPEN("
-              "OPEN_ID   SERIAL INT                          NOT NULL"
+              "OPEN_ID   SERIAL                              NOT NULL,"
               "TRANS_ID  INT PRIMARY KEY                     NOT NULL,"
               "SYM       TEXT                                NOT NULL,"
               "LIMI     DOUBLE PRECISION                    NOT NULL,"
@@ -38,12 +38,11 @@ void initTable(connection *C) {
                   "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
                   "SHARES   INT                              NOT NULL,"
                   "TIME     TIMESTAMP                        NOT NULL);";
-  executedTable =
-      "CREATE TABLE EXECUTED("
-      "PRICE    DOUBLE PRECISION                              NOT NULL,"
-      "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
-      "SHARES   INT                              NOT NULL,"
-      "TIME     TIMESTAMP                        NOT NULL);";
+  executedTable = "CREATE TABLE EXECUTED("
+                  "PRICE    DOUBLE PRECISION                 NOT NULL,"
+                  "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
+                  "SHARES   INT                              NOT NULL,"
+                  "TIME     TIMESTAMP                        NOT NULL);";
 
   work createTable(*C);
   createTable.exec(accountTable);

@@ -27,12 +27,17 @@ int main(int argc, char *argv[]) {
       "id=\"789\">80000</account></symbol><symbol sym=\"SPY\"><account "
       "id=\"123\">70000</account><account "
       "id=\"789\">60000</account></symbol></create>";
-  int len = strlen(buffer); // = XML.length
-  client.send_all(socket_fd, buffer, len);
+  // int len = strlen(buffer); // = XML.length
+  // client.send_all(socket_fd, buffer, len);
+  int status = send(socket_fd, buffer, 50000, 0);
+  std::cout << "send_status" << status << std::endl;
 
-  char *recv_buf;
-  recv(socket_fd, &recv_buf, sizeof(recv_buf), 0);
-  std::cout << recv_buf << std::endl;
+  std::cout << buffer << std::endl;
+  // std::cout << len << std::endl;
+
+  // char recv_buf[10000];
+  // recv(socket_fd, &recv_buf, 10000, 0);
+  // std::cout << recv_buf << std::endl;
   close(socket_fd);
   return 0;
 }

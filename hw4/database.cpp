@@ -30,7 +30,7 @@ void initTable(connection *C) {
 
   openTable = "CREATE TABLE OPEN("
               "OPEN_ID   SERIAL                              NOT NULL,"
-              "TRANS_ID  INT PRIMARY KEY                     NOT NULL,"
+              "TRANS_ID  SERIAL PRIMARY KEY                     NOT NULL,"
               "SYM       TEXT                                NOT NULL,"
               "LIMI     DOUBLE PRECISION                    NOT NULL,"
               "SHARES    INT                                 NOT NULL);";

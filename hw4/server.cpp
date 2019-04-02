@@ -1,3 +1,4 @@
+#include "ThreadPool.h"
 #include "database.h"
 #include "socket.h"
 #include "xml_parse.h"
@@ -57,9 +58,10 @@ int main() {
     exit(1);
   }
 
-  cleanTable(C);
-  initTable(C);
+  // cleanTable(C);
+  // initTable(C);
   C->disconnect();
+  ThreadPool pool(100);
   while (1) {
     std::cout << "Waiting for connection on port " << port << std::endl;
     struct sockaddr_storage socket_addr;
@@ -70,14 +72,7 @@ int main() {
       std::cout << "error: main accept" << std::endl;
       continue;
     }
-    // std::string ip = inet_ntoa(((struct sockaddr_in
-    // *)&socket_addr)->sin_addr);
-
-    // char recv_char[50000];
-    // recv(main_fd, recv_char, 50000, 0); // NEED examing
-    // std::cout << "recv status: " << status << std::endl;
-    // cout << recv_char << endl;
-
-    std::thread(Processes, main_fd).detach();
+    pool.enqueue(Processes, main_fd);
+    // std::thread(Processes, main_fd).detach();
   }
 }

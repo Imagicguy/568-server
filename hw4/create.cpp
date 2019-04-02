@@ -1,17 +1,16 @@
 #include "create.h"
 
 bool check_acc_id(connection *C, int account_id) {
-  std::cout << "the account_id checked is " << account_id << std::endl;
   std::string sql =
       "SELECT * FROM ACCOUNT WHERE (ACCOUNT_ID =" + to_string(account_id) +
       " )";
   work R(*C);
   result read(R.exec(sql));
   if (read.begin() == read.end()) {
-    std::cout << "not exist" << std::endl;
+
     return false;
   }
-  std::cout << "exist" << std::endl;
+
   return true;
 }
 
@@ -34,12 +33,12 @@ std::string create_account(connection *C, int account_id, int balance) {
     R.exec(order);
     R.commit();
     response = "<created id= \"" + to_string(account_id) + "\" > ";
-    std::cout << response << std::endl;
+
     return response;
   } else {
     response = "<error id= \"" + to_string(account_id) +
                "\">Account already existed</error> ";
-    std::cout << response << std::endl;
+
     return response;
   }
 }
@@ -52,7 +51,7 @@ std::string create_sym(connection *C, std::string sym, int account_id,
   if (!check_acc_id(C, account_id)) {
     response = "<error id= \"" + to_string(account_id) + "\" SYM = \'" + sym +
                " \'>Account doesnt exist<//error> ";
-    std::cout << response << std::endl;
+
     return response;
   }
   //  std::cout << "after check" << std::endl;
@@ -82,6 +81,6 @@ std::string create_sym(connection *C, std::string sym, int account_id,
   }
   response =
       "<created id= \"" + to_string(account_id) + "\" sym = \"" + sym + "\">";
-  std::cout << response << std::endl;
+
   return response;
 }

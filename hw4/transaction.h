@@ -2,9 +2,10 @@
 #define __TRANSACTION_H__
 #include "create.h"
 #include <time.h>
-void handle_order(connection *C);
-void insert_open(connection *C, int account_id, std::string sym, int amount,
-                 double limit);
+void insert_executed(connection *C, int trans_id, int deal_amount,
+                     double exec_price);
+int insert_open(connection *C, int account_id, std::string sym, int amount,
+                double limit);
 void split_open(connection *C, int account_id, std::string sym, int amount,
                 double limit, result read);
 bool check_balance(connection *C, double money_need);

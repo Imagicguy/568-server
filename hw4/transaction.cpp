@@ -1,6 +1,5 @@
 #include "transaction.h"
 #include <vector>
-void handle_order(connection *C) {}
 
 std::string reduce_balance(connection *C, int account_id, double change) {
   work query(*C);
@@ -15,7 +14,7 @@ std::string reduce_balance(connection *C, int account_id, double change) {
     return response;
   } else {
     result::const_iterator it = read.begin();
-    double current_balance = it[0].as<int>();
+    double current_balance = it[1].as<double>();
     if (current_balance + change < 0) {
       response = "<error account_id = \"" + to_string(account_id) +
                  ">No enough balance in this account</error>";
@@ -32,13 +31,15 @@ std::string reduce_balance(connection *C, int account_id, double change) {
     }
   }
 }
-void insert_open(connection *C, int account_id, std::string sym, int amount,
-                 double limit) {
-  std::string sql = "INSERT INTO OPENED(SYM,LIMI,SHARES) VALUES(\'" + sym +
-                    "\'," + to_string(limit) + "," + to_string(amount) + ");";
+int insert_open(connection *C, int account_id, std::string sym, int amount,
+                double limit) {
+  std::string sql = "INSERT INTO OPENED(SYM,LIMI,SHARES,ACCOUNT_ID) VALUES(\'" +
+                    sym + "\'," + to_string(limit) + "," + to_string(amount) +
+                    "," + to_string(account_id) + ") RETURN TRANS_ID;";
   work insert(*C);
-  insert.exec(sql);
+  result read(insert.exec(sql));
   insert.commit();
+  return read.begin()[0].as<int>();
 }
 void insert_executed(connection *C, int trans_id, int deal_amount,
                      double exec_price) {
@@ -50,11 +51,13 @@ void insert_executed(connection *C, int trans_id, int deal_amount,
   executed.exec(sql);
   executed.commit();
 }
-void split_open(connection *C, int account_id, std::string sym, int new_amount,
-                double new_price, result read) {
+void split_open(connection *C, int account_id, int new_amount, double new_price,
+                result read, int trans_id) {
   double wait_price = read.begin()[3].as<double>();
   int wait_amount = read.begin()[4].as<int>();
-  int wait_acc_id = read.begin()[1].as<int>();
+  int wait_acc_id = read.begin()[5].as<int>();
+  std::string sym = read.begin()[2].as<string>();
+  int wait_trans_id = read.begin()[1].as<int>();
   double exec_price = wait_price;
   work del(*C);
   std::string sql;
@@ -63,32 +66,43 @@ void split_open(connection *C, int account_id, std::string sym, int new_amount,
   double pre_paid_money = dealed_amount * max(new_price, wait_price);
   double return_money = pre_paid_money - dealed_money;
 
-  int del_acc_id = new_amount > 0 ? account_id : wait_acc_id; // sell
-  int edt_acc_id = new_amount < 0 ? account_id : wait_acc_id; // buy
-  if (new_amount + wait_amount < 0) {
+  int del_acc_id = new_amount < 0 ? account_id : wait_acc_id; // sell
+  int edt_acc_id = new_amount > 0 ? account_id : wait_acc_id; // buy
+  int sell_trans = new_amount < 0 ? trans_id : wait_trans_id;
+  int buy_trans = new_amount > 0 ? trans_id : wait_trans_id;
+  if (new_amount + wait_amount > 0) {
     // means buy.amount > sell.amount
 
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(del_acc_id) + ";";
+    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(sell_trans) + ";";
+    del.exec(sql);
+    sql = "UPDATE OPEN SET AMOUNT =" + to_string(new_amount + wait_amount) +
+          "WHERE TRANS_ID=" + to_string(buy_trans) + ";";
     del.exec(sql);
     del.commit();
-    insert_executed(C, edt_acc_id, dealed_amount, exec_price);
 
-  } else if (new_amount + wait_amount > 0) {
+  } else if (new_amount + wait_amount < 0) {
     // means sell.amount > buy.amount
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(edt_acc_id) + ";";
+    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
+    del.exec(sql);
+    sql = "UPDATE OPEN SET AMOUNT =" + to_string(new_amount + wait_amount) +
+          "WHERE TRANS_ID=" + to_string(sell_trans) + ";";
     del.exec(sql);
     del.commit();
-    insert_executed(C, del_acc_id, 0 - dealed_amount, exec_price);
   } else {
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(account_id) + ";";
+    // means sell.amount == buy.amount
+    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
 
     del.exec(sql);
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(wait_acc_id) + ";";
+    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(sell_trans) + ";";
     del.exec(sql);
     del.commit();
   }
   reduce_balance(C, del_acc_id, dealed_money);
   reduce_balance(C, edt_acc_id, return_money);
+
+  create_sym(C, sym, edt_acc_id, dealed_amount);
+  insert_executed(C, sell_trans, dealed_amount, exec_price);
+  insert_executed(C, buy_trans, dealed_amount, exec_price);
 }
 std::string pair_order(connection *C, int account_id, std::string sym,
                        int amount, double limit) {
@@ -98,28 +112,40 @@ std::string pair_order(connection *C, int account_id, std::string sym,
     // it is buy ,check all opened order amount < 0
     // put executed into EXECUTE
     sql = "SELECT * FROM OPEN WHERE (SHARES < 0 AND SYM = " + sym +
-          ") ORDER BY LIMI DSC,ID DSC;";
+          ") ORDER BY LIMI ASC,ID ASC;";
     result read(query.exec(sql));
-    if (read.size() != 0 && read.begin()[3].as<int>() <= limit) {
-      insert_open(C, account_id, sym, amount, limit);
-      split_open(C, account_id, sym, amount, limit, read);
+    if (read.size() != 0 && read.begin()[3].as<double>() <= limit) {
+      int trans_id = insert_open(C, account_id, sym, amount, limit);
+      response = "<opened sym=\"" + sym + "\" amount=" + to_string(amount) +
+                 " limit=" + to_string(limit) + " id=" + to_string(trans_id) +
+                 "/>";
+      split_open(C, account_id, amount, limit, read, trans_id);
+      return response;
 
     } else {
-      insert_open(C, account_id, sym, amount, limit);
-      response = "no paired";
+      int trans_id = insert_open(C, account_id, sym, amount, limit);
+      response = "<opened sym=\"" + sym + "\" amount=" + to_string(amount) +
+                 " limit=" + to_string(limit) + " id=" + to_string(trans_id) +
+                 "/>";
       return response;
     }
   } else if (amount < 0) {
     // it is sell,check all opened order amount > 0
     sql = "SELECT * FROM OPEN WHERE (SHARES > 0 AND SYM =\'" + sym +
-          "\') ORDER BY LIMI ASC,ID DSC;";
+          "\') ORDER BY LIMI DSC,ID ASC;";
     result read(query.exec(sql));
     if (read.size() == 0 && read.begin()[3].as<int>() >= limit) {
-      insert_open(C, account_id, sym, amount, limit);
-      split_open(C, account_id, sym, amount, limit, read);
+      int trans_id = insert_open(C, account_id, sym, amount, limit);
+      response = "<opened sym=\"" + sym + "\" amount=" + to_string(amount) +
+                 " limit=" + to_string(limit) + " id=" + to_string(trans_id) +
+                 "/>";
+      split_open(C, account_id, amount, limit, read, trans_id);
+      return response;
     } else {
-      insert_open(C, account_id, sym, amount, limit);
-      response = "no paired";
+      int trans_id = insert_open(C, account_id, sym, amount, limit);
+      response = "<opened sym=\"" + sym + "\" amount=" + to_string(amount) +
+                 " limit=" + to_string(limit) + " id=" + to_string(trans_id) +
+                 "/>";
       return response;
     }
   } else {
@@ -133,13 +159,13 @@ std::string pair_order(connection *C, int account_id, std::string sym,
 bool check_balance(connection *C, double money_need) {
   int account_id = 0;
 
-  return reduce_balance(C, account_id, money_need) == "succeed";
+  return reduce_balance(C, account_id, 0 - money_need) == "succeed";
 }
 
-bool check_storage(connection *C, int amount_need) {
+bool check_storage(connection *C, int account_id, int amount_need,
+                   std::string sym) {
   // amount_need should be negative
-  int account_id = 0;
-  std::string sym = "";
+
   std::string sql = "SELECT * FROM SYM WHERE (SYM = \'" + sym +
                     "\' AND ACCOUNT_ID = " + to_string(account_id) + "');";
   work query(*C);
@@ -147,7 +173,7 @@ bool check_storage(connection *C, int amount_need) {
   if (read.size() == 0)
     return false;
   double current_amount = read.begin()[0].as<double>();
-  if (current_amount < amount_need)
+  if (current_amount + amount_need < 0)
     return false;
   sql = "UPDATE SYM SET AMOUNT = " + to_string(current_amount + amount_need) +
         " WHERE ACCOUNT_ID = " + to_string(account_id) + ";";
@@ -159,18 +185,21 @@ bool check_storage(connection *C, int amount_need) {
 std::string confirm_order(connection *C) {
   double amount = 0, limit = 0;
   int account_id = 0;
+  std::string sym = "";
   std::string response = "succeed";
   if (amount > 0) { // buy
-    if (check_balance(C, amount * limit))
-      return response;
+    if (!check_balance(C, amount * limit))
+      response = "<error account_id = \"" + to_string(account_id) +
+                 "\">No enough balance in this account </error> ";
   } else if (amount < 0) { // sell
-    if (check_storage(C, amount))
-      return response;
+    if (!check_storage(C, account_id, amount, sym))
+      response = "<error account_id = \"" + to_string(account_id) +
+                 "\">No enough position in this account </error> ";
   } else {
     response = "<error account_id = \"" + to_string(account_id) +
                "\">order's amount should not be zero </error> ";
-    return response;
   }
+  return response;
 }
 
 std::string insert_order(connection *C) {
@@ -189,7 +218,7 @@ std::string insert_order(connection *C) {
     return response;
   // time_record
 
-  pair_order(C, account_id, sym, amount, limit);
+  return pair_order(C, account_id, sym, amount, limit);
 }
 
 std::vector<std::string> cancel_trans(connection *C, int trans_id) {
@@ -204,15 +233,13 @@ std::vector<std::string> cancel_trans(connection *C, int trans_id) {
   work trans(*C);
   for (result::const_iterator it = read.begin(); it != read.end(); ++it) {
 
-    std::string temp = "<canceled shared= " + to_string(it[3].as<int>()) +
+    std::string temp = "<canceled shared= " + to_string(it[4].as<int>()) +
                        " time=" + to_string(now_time) + "/>";
     responses.push_back(temp);
-    sql = "INSERT INTO CANCENED(TRANS_ID,SHARES,TIME) VALUES(" +
+    sql = "INSERT INTO CANCELED(TRANS_ID,SHARES,TIME,ACCOUNT_ID) VALUES(" +
           to_string(trans_id) + "," + to_string(it[3].as<int>()) + "," +
-          to_string(now_time) + " );";
+          to_string(now_time) + " ," + to_string(it[5].as<int>()) + ");";
     trans.exec(sql);
-    // add to canceled
-    // add to responses
   }
   trans.commit();
   sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(trans_id) + ";";
@@ -231,7 +258,7 @@ std::vector<std::string> query_trans(connection *C, int trans_id) {
   work open_read(*C);
   result read(open_read.exec(sql));
   for (result::const_iterator it = read.begin(); it != read.end(); ++it) {
-    std::string temp = "<open shares= " + to_string(it[3].as<int>()) + "/>";
+    std::string temp = "<open shares= " + to_string(it[4].as<int>()) + "/>";
     responses.push_back(temp);
   }
   sql = "SELECT * FROM CANCELED WHERE TRANS_ID=" + to_string(trans_id) + ";";
@@ -247,13 +274,10 @@ std::vector<std::string> query_trans(connection *C, int trans_id) {
   result read3(executed_read.exec(sql));
   for (result::const_iterator it = read3.begin(); it != read3.end(); ++it) {
     std::string temp = "<executed shares= " + to_string(it[2].as<int>()) +
-                       " price=" + to_string(it[0].as<int>()) + "" +
-                       " time=" + to_string(it[3].as<int>()) + "/>";
+                       " price=" + to_string(it[0].as<double>()) + "" +
+                       " time=" + to_string(it[3].as<long>()) + "/>";
     responses.push_back(temp);
   }
   responses.push_back("</status>");
   return responses;
-  // select all order with trans_id in OPENED,EXECUTED and CANCELED and return
-  // it
-  // maybe need a for loop to execute this part
 }

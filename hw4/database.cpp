@@ -33,16 +33,18 @@ void initTable(connection *C) {
               "TRANS_ID  SERIAL PRIMARY KEY                     NOT NULL,"
               "SYM       TEXT                                NOT NULL,"
               "LIMI     DOUBLE PRECISION                    NOT NULL,"
-              "SHARES    INT                                 NOT NULL);";
+              "SHARES    INT                                 NOT NULL,"
+              "ACCOUNT_ID INT REFERENCES ACCOUNT(ACCOUNT_ID) NOT NULL);";
   canceledTable = "CREATE TABLE CANCELED("
                   "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
                   "SHARES   INT                              NOT NULL,"
-                  "TIME     TIMESTAMP                        NOT NULL);";
+                  "TIME     INT                              NOT NULL,"
+                  "ACCOUNT_ID INT REFERENCES ACCOUNT_ID(ACCOUNT_ID) NOT NULL);";
   executedTable = "CREATE TABLE EXECUTED("
                   "PRICE    DOUBLE PRECISION                 NOT NULL,"
                   "TRANS_ID INT REFERENCES OPEN(TRANS_ID)    NOT NULL,"
                   "SHARES   INT                              NOT NULL,"
-                  "TIME     TIMESTAMP                        NOT NULL);";
+                  "TIME     INT                              NOT NULL);";
 
   work createTable(*C);
   createTable.exec(accountTable);

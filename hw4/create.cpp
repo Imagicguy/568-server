@@ -60,21 +60,21 @@ std::string create_sym(connection *C, std::string sym, int account_id,
   sql = "SELECT * FROM SYM WHERE (ACCOUNT_ID =" + to_string(account_id) +
         " AND SYM = \'" + sym + "\' );";
   result read_sym(R.exec(sql));
-  std::cout << "after read" << std::endl;
+
   if (read_sym.begin() == read_sym.end()) {
-    std::cout << "1" << std::endl;
+
     sql = "INSERT INTO SYM(ACCOUNT_ID,SYM,NUM) VALUES(" +
           to_string(account_id) + ",\'" + sym + "\'," + to_string(num) + ");";
     R.exec(sql);
     R.commit();
   } else {
-    std::cout << "2" << std::endl;
+
     result::const_iterator it = read_sym.begin();
-    std::cout << "begin succeed" << std::endl;
+
     int old_value = it[2].as<int>();
 
     num += old_value;
-    std::cout << "new value is " << num << std::endl;
+
     sql = "UPDATE SYM SET NUM = " + to_string(num) + " WHERE SYM = \'" +
           it[1].as<string>() + "\';";
     R.exec(sql);

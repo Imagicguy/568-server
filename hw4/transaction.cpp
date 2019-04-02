@@ -51,6 +51,8 @@ void insert_executed(connection *C, int trans_id, int deal_amount,
   executed.exec(sql);
   executed.commit();
 }
+std::string pair_order(connection *C, int account_id, std::string sym,
+                       int amount, double limit);
 void split_open(connection *C, int account_id, int new_amount, double new_price,
                 result read, int trans_id) {
   double wait_price = read.begin()[3].as<double>();
@@ -79,7 +81,8 @@ void split_open(connection *C, int account_id, int new_amount, double new_price,
           "WHERE TRANS_ID=" + to_string(buy_trans) + ";";
     del.exec(sql);
     del.commit();
-
+    pair_order(C, edt_acc_id, sym, new_amount + wait_amount,
+               min(new_price, wait_price)); // try to pair remain part
   } else if (new_amount + wait_amount < 0) {
     // means sell.amount > buy.amount
     sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
@@ -88,6 +91,8 @@ void split_open(connection *C, int account_id, int new_amount, double new_price,
           "WHERE TRANS_ID=" + to_string(sell_trans) + ";";
     del.exec(sql);
     del.commit();
+    pair_order(C, del_acc_id, sym, new_amount + wait_amount,
+               max(new_price, wait_price));
   } else {
     // means sell.amount == buy.amount
     sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
@@ -120,6 +125,7 @@ std::string pair_order(connection *C, int account_id, std::string sym,
                  " limit=" + to_string(limit) + " id=" + to_string(trans_id) +
                  "/>";
       split_open(C, account_id, amount, limit, read, trans_id);
+
       return response;
 
     } else {

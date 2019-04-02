@@ -55,6 +55,66 @@ std::string pair_order(connection *C, int account_id, std::string sym,
                        int amount, double limit);
 void split_open(connection *C, int account_id, int new_amount, double new_price,
                 result read, int trans_id) {
+  int sign = new_amount > 0 ? 1 : -1;
+
+  for (result::const_iterator it = read.begin(); it != read.end(); ++it) {
+    double wait_price = it[3].as<double>();
+    int wait_amount = it[4].as<int>();
+    int wait_acc_id = it[5].as<int>();
+    std::string sym = it[2].as<string>();
+    int wait_trans_id = it[1].as<int>();
+    double exec_price = wait_price;
+    work del(*C);
+    std::string sql;
+    int dealed_amount = min(abs(wait_amount), abs(new_amount));
+    new_amount = sign * (abs(new_amount) - dealed_amount);
+    double dealed_money = dealed_amount * exec_price;
+    double pre_paid_money = dealed_amount * max(new_price, wait_price);
+    double return_money = pre_paid_money - dealed_money;
+
+    int del_acc_id = new_amount < 0 ? account_id : wait_acc_id; // sell
+    int edt_acc_id = new_amount > 0 ? account_id : wait_acc_id; // buy
+    int sell_trans = new_amount < 0 ? trans_id : wait_trans_id;
+    int buy_trans = new_amount > 0 ? trans_id : wait_trans_id;
+
+    if (new_amount + wait_amount > 0) {
+      // means buy.amount > sell.amount
+
+      sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(sell_trans) + ";";
+      del.exec(sql);
+      sql = "UPDATE OPEN SET AMOUNT =" + to_string(new_amount + wait_amount) +
+            "WHERE TRANS_ID=" + to_string(buy_trans) + ";";
+      del.exec(sql);
+      del.commit();
+
+      // try to pair remain part
+    } else if (new_amount + wait_amount < 0) {
+      // means sell.amount > buy.amount
+      sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
+      del.exec(sql);
+      sql = "UPDATE OPEN SET AMOUNT =" + to_string(new_amount + wait_amount) +
+            "WHERE TRANS_ID=" + to_string(sell_trans) + ";";
+      del.exec(sql);
+      del.commit();
+    } else {
+      // means sell.amount == buy.amount
+      sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
+
+      del.exec(sql);
+      sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(sell_trans) + ";";
+      del.exec(sql);
+      del.commit();
+    }
+    reduce_balance(C, del_acc_id, dealed_money);
+    reduce_balance(C, edt_acc_id, return_money);
+
+    create_sym(C, sym, edt_acc_id, dealed_amount);
+    insert_executed(C, sell_trans, dealed_amount, exec_price);
+    insert_executed(C, buy_trans, dealed_amount, exec_price);
+  }
+}
+void split_open_broken(connection *C, int account_id, int new_amount,
+                       double new_price, result read, int trans_id) {
   double wait_price = read.begin()[3].as<double>();
   int wait_amount = read.begin()[4].as<int>();
   int wait_acc_id = read.begin()[5].as<int>();
@@ -72,6 +132,7 @@ void split_open(connection *C, int account_id, int new_amount, double new_price,
   int edt_acc_id = new_amount > 0 ? account_id : wait_acc_id; // buy
   int sell_trans = new_amount < 0 ? trans_id : wait_trans_id;
   int buy_trans = new_amount > 0 ? trans_id : wait_trans_id;
+  int isRemain = 0;
   if (new_amount + wait_amount > 0) {
     // means buy.amount > sell.amount
 
@@ -81,8 +142,8 @@ void split_open(connection *C, int account_id, int new_amount, double new_price,
           "WHERE TRANS_ID=" + to_string(buy_trans) + ";";
     del.exec(sql);
     del.commit();
-    pair_order(C, edt_acc_id, sym, new_amount + wait_amount,
-               min(new_price, wait_price)); // try to pair remain part
+    isRemain =
+    // try to pair remain part
   } else if (new_amount + wait_amount < 0) {
     // means sell.amount > buy.amount
     sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
@@ -91,8 +152,6 @@ void split_open(connection *C, int account_id, int new_amount, double new_price,
           "WHERE TRANS_ID=" + to_string(sell_trans) + ";";
     del.exec(sql);
     del.commit();
-    pair_order(C, del_acc_id, sym, new_amount + wait_amount,
-               max(new_price, wait_price));
   } else {
     // means sell.amount == buy.amount
     sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";

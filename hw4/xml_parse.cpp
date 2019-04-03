@@ -56,7 +56,8 @@ string resp_str(connection *C, const char *pSource) {
         // tmp_account.balance = balance;
         // cout << tmp_account.id << " " << tmp_account.balance << endl;
         string create_account_resp = create_account(C, id, balance);
-        res += "\n" + create_account_resp;
+        // res += "\n" + create_account_resp;
+        res += create_account_resp;
       }
       // <symbol> case
       else if (childname == "symbol") {
@@ -80,20 +81,25 @@ string resp_str(connection *C, const char *pSource) {
           // cout << tmp_sym.sym << " " << tmp_sym.id << " " << tmp_sym.num
           //<< endl;
           string create_sym_resp = create_sym(C, sym, id, num);
-          res += "\n" + create_sym_resp;
+          // res += "\n" + create_sym_resp;
+          res += create_sym_resp;
         }
       }
     }
   }
   //<transactions> case
   else if (TopElmtName == "transactions") {
+    const XMLAttribute *ChildAttrIni = TopElmt->FirstAttribute();
+    assert(strcmp(ChildAttrIni->Name(), "id") == 0);
+    int account_id = stoi(TopElmt->Attribute(ChildAttrIni->Name()));
+    // cout << trans_id << endl;
     for (XMLNode *ChildNode = TopNode->FirstChild(); ChildNode != nullptr;
          ChildNode = ChildNode->NextSibling()) {
       XMLElement *child = ChildNode->ToElement();
       string childname = child->Name();
       // <order> case
       if (childname == "order") {
-        Order tmp_order;
+        // Order tmp_order;
         const XMLAttribute *ChildAttr = child->FirstAttribute();
         assert(strcmp(ChildAttr->Name(), "sym") == 0);
         string sym = child->Attribute(ChildAttr->Name());
@@ -103,29 +109,61 @@ string resp_str(connection *C, const char *pSource) {
         const XMLAttribute *ChildAttr3 = ChildAttr2->Next();
         assert(strcmp(ChildAttr3->Name(), "limit") == 0);
         double limit = stod(child->Attribute(ChildAttr3->Name()));
-        tmp_order.sym = sym;
-        tmp_order.amount = amount;
-        tmp_order.limit = limit;
-        cout << tmp_order.sym << " " << tmp_order.amount << " "
-             << tmp_order.limit << endl;
+        // tmp_order.sym = sym;
+        // tmp_order.amount = amount;
+        // tmp_order.limit = limit;
+        // cout << tmp_order.sym << " " << tmp_order.amount << " "
+        // << tmp_order.limit << endl;
+        string order_resp = insert_order(C, account_id, sym, amount, limit);
+        res += order_resp;
       }
       // <query> case
       else if (childname == "query") {
-        Query tmp_query;
+        // Query tmp_query;
         const XMLAttribute *ChildAttr = child->FirstAttribute();
         assert(strcmp(ChildAttr->Name(), "id") == 0);
         int id = stoi(child->Attribute(ChildAttr->Name()));
-        tmp_query.id = id;
-        cout << tmp_query.id << endl;
+        // tmp_query.id = id;
+        // cout << tmp_query.id << endl;
+        string sql = "SELECT * FROM TRANSACTION WHERE (TRANS_ID = \'" +
+                     to_string(id) + "\');";
+        work query(*C);
+        result read(query.exec(sql));
+        query.commit();
+        if (read.size() == 0) {
+          string msg = "<error id=\"" + to_string(id) +
+                       "\">Transaction ID doesnt exist</error>";
+          res += msg;
+        } else {
+          vector<string> tmp = query_trans(C, id);
+          for (int i = 0; i < int(tmp.size()); i++) {
+            res += tmp[i];
+          }
+        }
       }
       // <cancel> case
       else if (childname == "cancel") {
-        Cancel tmp_cancel;
+        // Cancel tmp_cancel;
         const XMLAttribute *ChildAttr = child->FirstAttribute();
         assert(strcmp(ChildAttr->Name(), "id") == 0);
         int id = stoi(child->Attribute(ChildAttr->Name()));
-        tmp_cancel.id = id;
-        cout << tmp_cancel.id << endl;
+        // tmp_cancel.id = id;
+        // cout << tmp_cancel.id << endl;
+        string sql = "SELECT * FROM TRANSACTION WHERE (TRANS_ID = \'" +
+                     to_string(id) + "\');";
+        work query(*C);
+        result read(query.exec(sql));
+        query.commit();
+        if (read.size() == 0) {
+          string msg = "<error id=\"" + to_string(id) +
+                       "\">Transaction ID doesnt exist</error>";
+          res += msg;
+        } else {
+          vector<string> tmp = cancel_trans(C, id);
+          for (int i = 0; i < int(tmp.size()); i++) {
+            res += tmp[i];
+          }
+        }
       }
     }
   }

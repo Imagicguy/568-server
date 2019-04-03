@@ -1,4 +1,3 @@
-#include "ThreadPool.h"
 #include "database.h"
 #include "socket.h"
 #include "xml_parse.h"
@@ -18,7 +17,7 @@ using namespace pqxx;
 void Processes(int main_fd) {
   connection *C;
   try {
-    C = new connection("dbname=matching_mac user=postgres password=passw0rd");
+    C = new connection("dbname=stockdb user=postgres password=passw0rd");
     if (C->is_open()) {
       std::cout << "Opened database successfully: " << C->dbname() << std::endl;
     } else {
@@ -30,11 +29,11 @@ void Processes(int main_fd) {
     exit(1);
   }
   char recv_char[50000];
-  recv(main_fd, recv_char, 50000, 0); // NEED examing
+  recv(main_fd, recv_char, 50000, 0);
   cout << recv_char << endl;
   std::string resp_xml_str = resp_str(C, recv_char);
-  std::cout << "response string: " << resp_xml_str << std::endl;
-  send(main_fd, resp_xml_str.c_str(), resp_xml_str.size(), 0);
+  std::cout << "response string: \n" << resp_xml_str << std::endl;
+  send(main_fd, resp_xml_str.c_str(), 50000, 0);
   close(main_fd);
   C->disconnect();
 }
@@ -46,7 +45,7 @@ int main() {
   int socket_fd = server.init_server();
   connection *C;
   try {
-    C = new connection("dbname=matching_mac user=postgres password=passw0rd");
+    C = new connection("dbname=stockdb user=postgres password=passw0rd");
     if (C->is_open()) {
       std::cout << "Opened database successfully: " << C->dbname() << std::endl;
     } else {
@@ -58,10 +57,9 @@ int main() {
     exit(1);
   }
 
-  // cleanTable(C);
-  // initTable(C);
+  cleanTable(C);
+  initTable(C);
   C->disconnect();
-  ThreadPool pool(100);
   while (1) {
     std::cout << "Waiting for connection on port " << port << std::endl;
     struct sockaddr_storage socket_addr;
@@ -72,7 +70,7 @@ int main() {
       std::cout << "error: main accept" << std::endl;
       continue;
     }
-    pool.enqueue(Processes, main_fd);
-    // std::thread(Processes, main_fd).detach();
+
+    std::thread(Processes, main_fd).detach();
   }
 }

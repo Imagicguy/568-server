@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<create>
+  <account id="123" balance="1000000"/>
+  <account id="456" balance="1000000"/>
+  <account id="789" balance="1000000"/>
+  <symbol sym="SPY">
+    <account id="123">10000</account>
+  </symbol>
+    <symbol sym="BTC">
+      <account id="456">9000</account>
+      <account id="789">7000</account>
+  </symbol>
+  <symbol sym="T5asdf">
+    <account id="789">8000</account>
+  </symbol>
+  <symbol sym="qwerty">
+    <account id="456">7000</account>
+  </symbol>
+</create>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="123">
+  <order sym="BTC" amount="300" limit="125"/>
+</transactions>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="456">
+  <order sym="BTC" amount="-200" limit="140"/>
+</transactions>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="123">
+  <order sym="BTC" amount="200" limit="127"/>
+</transactions>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="456">
+  <order sym="BTC" amount="-500" limit="128"/>
+  <order sym="BTC" amount="-200" limit="140"/>
+</transactions>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="123">
+  <order sym="BTC" amount="400" limit="125"/>
+</transactions>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions id="456">
+  <order sym="BTC" amount="-400" limit="124"/>
+</transactions>

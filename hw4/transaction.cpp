@@ -113,70 +113,16 @@ void split_open(connection *C, int account_id, int new_amount, double new_price,
     insert_executed(C, buy_trans, dealed_amount, exec_price);
   }
 }
-void split_open_broken(connection *C, int account_id, int new_amount,
-                       double new_price, result read, int trans_id) {
-  double wait_price = read.begin()[3].as<double>();
-  int wait_amount = read.begin()[4].as<int>();
-  int wait_acc_id = read.begin()[5].as<int>();
-  std::string sym = read.begin()[2].as<string>();
-  int wait_trans_id = read.begin()[1].as<int>();
-  double exec_price = wait_price;
-  work del(*C);
-  std::string sql;
-  int dealed_amount = min(abs(wait_amount), abs(new_amount));
-  double dealed_money = dealed_amount * exec_price;
-  double pre_paid_money = dealed_amount * max(new_price, wait_price);
-  double return_money = pre_paid_money - dealed_money;
 
-  int del_acc_id = new_amount < 0 ? account_id : wait_acc_id; // sell
-  int edt_acc_id = new_amount > 0 ? account_id : wait_acc_id; // buy
-  int sell_trans = new_amount < 0 ? trans_id : wait_trans_id;
-  int buy_trans = new_amount > 0 ? trans_id : wait_trans_id;
-  int isRemain = 0;
-  if (new_amount + wait_amount > 0) {
-    // means buy.amount > sell.amount
-
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(sell_trans) + ";";
-    del.exec(sql);
-    sql = "UPDATE OPEN SET AMOUNT =" + to_string(new_amount + wait_amount) +
-          "WHERE TRANS_ID=" + to_string(buy_trans) + ";";
-    del.exec(sql);
-    del.commit();
-    isRemain =
-    // try to pair remain part
-  } else if (new_amount + wait_amount < 0) {
-    // means sell.amount > buy.amount
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
-    del.exec(sql);
-    sql = "UPDATE OPEN SET AMOUNT =" + to_string(new_amount + wait_amount) +
-          "WHERE TRANS_ID=" + to_string(sell_trans) + ";";
-    del.exec(sql);
-    del.commit();
-  } else {
-    // means sell.amount == buy.amount
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(buy_trans) + ";";
-
-    del.exec(sql);
-    sql = "DELETE FROM OPEN WHERE TRANS_ID =" + to_string(sell_trans) + ";";
-    del.exec(sql);
-    del.commit();
-  }
-  reduce_balance(C, del_acc_id, dealed_money);
-  reduce_balance(C, edt_acc_id, return_money);
-
-  create_sym(C, sym, edt_acc_id, dealed_amount);
-  insert_executed(C, sell_trans, dealed_amount, exec_price);
-  insert_executed(C, buy_trans, dealed_amount, exec_price);
-}
 std::string pair_order(connection *C, int account_id, std::string sym,
                        int amount, double limit) {
   std::string sql = "", response = "";
-  work query(*C);
+  nontransaction query(*C);
   if (amount > 0) {
     // it is buy ,check all opened order amount < 0
     // put executed into EXECUTE
     sql = "SELECT * FROM OPEN WHERE (SHARES < 0 AND SYM = " + sym +
-          ") ORDER BY LIMI ASC,ID ASC;";
+          ") ORDER BY LIMI ASC,ID ASC FOR UPDATE;";
     result read(query.exec(sql));
     if (read.size() != 0 && read.begin()[3].as<double>() <= limit) {
       int trans_id = insert_open(C, account_id, sym, amount, limit);
@@ -197,7 +143,7 @@ std::string pair_order(connection *C, int account_id, std::string sym,
   } else if (amount < 0) {
     // it is sell,check all opened order amount > 0
     sql = "SELECT * FROM OPEN WHERE (SHARES > 0 AND SYM =\'" + sym +
-          "\') ORDER BY LIMI DSC,ID ASC;";
+          "\') ORDER BY LIMI DSC,ID ASC FOR UPDATE;";
     result read(query.exec(sql));
     if (read.size() == 0 && read.begin()[3].as<int>() >= limit) {
       int trans_id = insert_open(C, account_id, sym, amount, limit);

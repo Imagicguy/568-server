@@ -57,16 +57,17 @@ std::string create_sym(connection *C, std::string sym, int account_id,
   //  std::cout << "after check" << std::endl;
   work R(*C);
   sql = "SELECT * FROM SYM WHERE (ACCOUNT_ID =" + to_string(account_id) +
-        " AND SYM = \'" + sym + "\' );";
+        " AND SYM = \'" + sym + "\' ) FOR UPDATE;"; // row-level locks
   result read_sym(R.exec(sql));
 
-  if (read_sym.begin() == read_sym.end()) {
+  if (read_sym.begin() ==
+      read_sym.end()) { // nothing selected before ,so nothing locked
 
     sql = "INSERT INTO SYM(ACCOUNT_ID,SYM,NUM) VALUES(" +
           to_string(account_id) + ",\'" + sym + "\'," + to_string(num) + ");";
     R.exec(sql);
     R.commit();
-  } else {
+  } else { // update to unlock this row
 
     result::const_iterator it = read_sym.begin();
 

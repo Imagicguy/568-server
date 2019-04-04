@@ -1,0 +1,59 @@
+This is the testcase shared from yx143
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/original$ ./client1 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <created id="100"/>
+    <created id="101"/>
+    <created id="102"/>
+    <created sym="SPY" id="101"/>
+    <created sym="SPY" id="102"/>
+    <created sym="GOLD" id="100"/>
+    <created sym="GOLD" id="102"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/original$ ./client2 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="SPY" amount="-100" limit="14.567000" id="1"/>
+    <opened sym="GOLD" amount="10" limit="12.000000" id="2"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/original$ ./client3 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <error account_id="102">No enough balance in this account</error>
+    <opened sym="GOLD" amount="-100" limit="10.000000" id="3"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/original$ ./client4 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <status id="1">
+        <open shares="-100"/>
+    </status>
+    <status id="2">
+        <executed shares="10" price="12.000000" time="1554325279"/>
+    </status>
+    <status id="3">
+        <open shares="-90"/>
+        <executed shares="10" price="12.000000" time="1554325279"/>
+    </status>
+    <error id="4">Transaction ID doesnt exist</error>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/original$ ./client5 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <canceled id="1">
+        <canceled shares="-100" time="1554325288"/>
+    </canceled>
+    <canceled id="2">
+        <executed shares="10" price="12.000000" time="1554325279"/>
+    </canceled>
+    <canceled id="3">
+        <canceled shares="-90" time="1554325288"/>
+        <executed shares="10" price="12.000000" time="1554325279"/>
+    </canceled>
+    <error id="4">Transaction ID doesnt exist</error>
+</results>

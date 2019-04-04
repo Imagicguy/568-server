@@ -29,23 +29,20 @@ int main(int argc, char *argv[]) {
       "id=\"789\">7000</account></symbol><symbol sym=\"T5asdf\"><account "
       "id=\"789\">8000</account></symbol><symbol sym=\"qwerty\"><account "
       "id=\"456\">7000</account></symbol></create>";
-  // int len = strlen(buffer); // = XML.length
-  // client.send_all(socket_fd, buffer, len);
-  int status = send(socket_fd, buffer, 50000, 0);
-  cout << "send_status" << status << endl;
+  send(socket_fd, buffer, 50000, 0);
 
-  cout << buffer << endl;
+  // cout << buffer << endl;
 
   char recv_buf[50000];
-  status = recv(socket_fd, &recv_buf, 50000, 0);
+  recv(socket_fd, &recv_buf, 50000, 0);
   // cout << recv_buf << endl;
 
   XMLDocument xml;
   string pSource = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><results>" +
                    string(recv_buf) + "</results>";
-  cout << pSource << endl;
+  // cout << pSource << endl;
   xml.Parse(pSource.c_str());
-  cout << "xml.Print():" << endl;
+  // cout << "xml.Print():" << endl;
   xml.Print();
 
   close(socket_fd);

@@ -22,26 +22,23 @@ int main(int argc, char *argv[]) {
   int socket_fd = client.init_client();
   const char *buffer =
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?><transactions "
-      "id=\"123\"><order sym=\"BTC\" amount=\"300\" "
-      "limit=\"125\"/></transactions>";
+      "id=\"102\"><query id=\"1\"/><query id=\"2\"/><query "
+      "id=\"3\"/><query id=\"4\"/></transactions>";
 
-  // int len = strlen(buffer); // = XML.length
-  // client.send_all(socket_fd, buffer, len);
-  int status = send(socket_fd, buffer, 50000, 0);
-  cout << "send_status" << status << endl;
+  send(socket_fd, buffer, 50000, 0);
 
-  cout << buffer << endl;
+  // cout << buffer << endl;
 
   char recv_buf[50000];
-  status = recv(socket_fd, &recv_buf, 50000, 0);
+  recv(socket_fd, &recv_buf, 50000, 0);
   // cout << recv_buf << endl;
 
   XMLDocument xml;
   string pSource = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><results>" +
                    string(recv_buf) + "</results>";
-  cout << pSource << endl;
+  // cout << pSource << endl;
   xml.Parse(pSource.c_str());
-  cout << "xml.Print():" << endl;
+  // cout << "xml.Print():" << endl;
   xml.Print();
 
   close(socket_fd);

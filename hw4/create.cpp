@@ -58,7 +58,7 @@ std::string create_sym(connection *C, std::string sym, int account_id,
   //  std::cout << "after check" << std::endl;
   work R(*C);
   sql = "SELECT * FROM SYM WHERE (ACCOUNT_ID =" + to_string(account_id) +
-        " AND SYM = \'" + sym + "\' ) FOR UPDATE;";
+        " AND SYM = \'" + sym + "\' );";
   result read_sym(R.exec(sql));
   // std::cout << "after read" << std::endl;
   if (read_sym.begin() == read_sym.end()) {

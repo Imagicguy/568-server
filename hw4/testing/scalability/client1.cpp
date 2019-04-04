@@ -21,27 +21,26 @@ int main(int argc, char *argv[]) {
   Socket client(hostname, port);
   int socket_fd = client.init_client();
   const char *buffer =
-      "<?xml version=\"1.0\" encoding=\"UTF-8\"?><transactions "
-      "id=\"456\"><order sym=\"BTC\" amount=\"-100\" "
-      "limit=\"130\"/></transactions>";
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?><create><account id=\"123\" "
+      "balance=\"100000000\"/><account id=\"456\" "
+      "balance=\"100000000\"/><symbol sym=\"SPY\"><account "
+      "id=\"123\">100000000</account><account "
+      "id=\"456\">100000000</account></symbol><symbol sym=\"BTC\"><account "
+      "id=\"123\">100000000</account></symbol></create>";
+  send(socket_fd, buffer, 50000, 0);
 
-  // int len = strlen(buffer); // = XML.length
-  // client.send_all(socket_fd, buffer, len);
-  int status = send(socket_fd, buffer, 50000, 0);
-  cout << "send_status" << status << endl;
-
-  cout << buffer << endl;
+  // cout << buffer << endl;
 
   char recv_buf[50000];
-  status = recv(socket_fd, &recv_buf, 50000, 0);
+  recv(socket_fd, &recv_buf, 50000, 0);
   // cout << recv_buf << endl;
 
   XMLDocument xml;
   string pSource = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><results>" +
                    string(recv_buf) + "</results>";
-  cout << pSource << endl;
+  // cout << pSource << endl;
   xml.Parse(pSource.c_str());
-  cout << "xml.Print():" << endl;
+  // cout << "xml.Print():" << endl;
   xml.Print();
 
   close(socket_fd);

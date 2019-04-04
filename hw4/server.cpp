@@ -1,3 +1,4 @@
+#include "ThreadPool.h"
 #include "database.h"
 #include "socket.h"
 #include "xml_parse.h"
@@ -29,11 +30,11 @@ void Processes(int main_fd) {
     exit(1);
   }
   char recv_char[50000];
-  recv(main_fd, recv_char, 50000, 0);
+  recv(main_fd, recv_char, 50000, 0); // NEED examing
   cout << recv_char << endl;
   std::string resp_xml_str = resp_str(C, recv_char);
-  std::cout << "response string: \n" << resp_xml_str << std::endl;
-  send(main_fd, resp_xml_str.c_str(), 50000, 0);
+  std::cout << "response string: " << resp_xml_str << std::endl;
+  send(main_fd, resp_xml_str.c_str(), resp_xml_str.size(), 0);
   close(main_fd);
   C->disconnect();
 }
@@ -60,6 +61,7 @@ int main() {
   cleanTable(C);
   initTable(C);
   C->disconnect();
+  ThreadPool pool(100);
   while (1) {
     std::cout << "Waiting for connection on port " << port << std::endl;
     struct sockaddr_storage socket_addr;
@@ -70,7 +72,7 @@ int main() {
       std::cout << "error: main accept" << std::endl;
       continue;
     }
-
-    std::thread(Processes, main_fd).detach();
+    pool.enqueue(Processes, main_fd);
+    // std::thread(Processes, main_fd).detach();
   }
 }

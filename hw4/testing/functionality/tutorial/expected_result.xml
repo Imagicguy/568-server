@@ -1,0 +1,249 @@
+This test is the example test provided in ece568 hw4 description.
+when the 7th order is inserted into the table,
+it will do the auto matching and database's data is modified.
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client1 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <created id="123"/>
+    <created id="456"/>
+    <created id="789"/>
+    <created sym="SPY" id="123"/>
+    <created sym="BTC" id="456"/>
+    <created sym="BTC" id="789"/>
+    <created sym="T5asdf" id="789"/>
+    <created sym="qwerty" id="456"/>
+</results>
+
+Database:
+stockdb=# select * from account;
+ account_id | balance
+------------+---------
+        123 | 1000000
+        456 | 1000000
+        789 | 1000000
+(3 rows)
+
+stockdb=# select * from sym order by sym;
+ account_id |  sym   |  num
+------------+--------+-------
+        456 | BTC    |  9000
+        789 | BTC    |  7000
+        456 | qwerty |  7000
+        123 | SPY    | 10000
+        789 | T5asdf |  8000
+(5 rows)
+
+
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client2 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="300" limit="125.000000" id="1"/>
+</results>
+
+Database:
+stockdb=# select * from account;
+ account_id | balance
+------------+---------
+        456 | 1000000
+        789 | 1000000
+        123 |  962500
+(3 rows)
+
+stockdb=# select * from open;
+ trans_id | sym | limi | shares | account_id
+----------+-----+------+--------+------------
+        1 | BTC |  125 |    300 |        123
+(1 row)
+
+
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client3 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="-100" limit="130.000000" id="2"/>
+</results>
+
+Database:
+stockdb=# select * from sym order by sym;
+ account_id |  sym   |  num
+------------+--------+-------
+        789 | BTC    |  7000
+        456 | BTC    |  8900
+        456 | qwerty |  7000
+        123 | SPY    | 10000
+        789 | T5asdf |  8000
+(5 rows)
+
+stockdb=# select * from open;
+ trans_id | sym | limi | shares | account_id
+----------+-----+------+--------+------------
+        1 | BTC |  125 |    300 |        123
+        2 | BTC |  130 |   -100 |        456
+(2 rows)
+
+
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client4 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="200" limit="127.000000" id="3"/>
+</results>
+
+Database:
+stockdb=# select * from account;
+ account_id | balance
+------------+---------
+        456 | 1000000
+        789 | 1000000
+        123 |  937100
+(3 rows)
+
+stockdb=# select * from open;
+ trans_id | sym | limi | shares | account_id
+----------+-----+------+--------+------------
+        1 | BTC |  125 |    300 |        123
+        2 | BTC |  130 |   -100 |        456
+        3 | BTC |  127 |    200 |        123
+(3 rows)
+
+
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client5 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="-500" limit="128.000000" id="4"/>
+    <opened sym="BTC" amount="-200" limit="140.000000" id="5"/>
+</results>
+
+Database:
+stockdb=# select * from sym order by sym;
+ account_id |  sym   |  num
+------------+--------+-------
+        789 | BTC    |  7000
+        456 | BTC    |  8200
+        456 | qwerty |  7000
+        123 | SPY    | 10000
+        789 | T5asdf |  8000
+(5 rows)
+
+stockdb=# select * from open;
+ trans_id | sym | limi | shares | account_id
+----------+-----+------+--------+------------
+        1 | BTC |  125 |    300 |        123
+        2 | BTC |  130 |   -100 |        456
+        3 | BTC |  127 |    200 |        123
+        4 | BTC |  128 |   -500 |        456
+        5 | BTC |  140 |   -200 |        456
+(5 rows)
+
+
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client6 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="400" limit="125.000000" id="6"/>
+</results>
+
+Database:
+stockdb=# select * from account;
+ account_id | balance
+------------+---------
+        456 | 1000000
+        789 | 1000000
+        123 |  887100
+(3 rows)
+
+stockdb=# select * from open;
+ trans_id | sym | limi | shares | account_id
+----------+-----+------+--------+------------
+        1 | BTC |  125 |    300 |        123
+        2 | BTC |  130 |   -100 |        456
+        3 | BTC |  127 |    200 |        123
+        4 | BTC |  128 |   -500 |        456
+        5 | BTC |  140 |   -200 |        456
+        6 | BTC |  125 |    400 |        123
+(6 rows)
+
+
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client7 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="-400" limit="124.000000" id="7"/>
+</results>
+
+Database:
+stockdb=# select * from account;
+ account_id | balance
+------------+---------
+        789 | 1000000
+        456 | 1050400
+        123 |  887100
+(3 rows)
+
+stockdb=# select * from sym order by sym;
+ account_id |  sym   |  num
+------------+--------+-------
+        789 | BTC    |  7000
+        456 | BTC    |  7800
+        123 | BTC    |   400
+        456 | qwerty |  7000
+        123 | SPY    | 10000
+        789 | T5asdf |  8000
+(6 rows)
+
+stockdb=# select * from open order by trans_id asc;
+ trans_id | sym | limi | shares | account_id
+----------+-----+------+--------+------------
+        1 | BTC |  125 |    100 |        123
+        2 | BTC |  130 |   -100 |        456
+        4 | BTC |  128 |   -500 |        456
+        5 | BTC |  140 |   -200 |        456
+        6 | BTC |  125 |    400 |        123
+(5 rows)
+
+stockdb=# select * from executed;
+ price | trans_id | shares |    time
+-------+----------+--------+------------
+   127 |        7 |    200 | 1554321562
+   127 |        3 |    200 | 1554321562
+   125 |        7 |    200 | 1554321562
+   125 |        1 |    200 | 1554321562
+(4 rows)
+
+
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client8 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <status id="1">
+        <open shares="100"/>
+        <executed shares="200" price="125.000000" time="1554320754"/>
+    </status>
+    <status id="7">
+        <executed shares="200" price="127.000000" time="1554320754"/>
+        <executed shares="200" price="125.000000" time="1554320754"/>
+    </status>
+    <canceled id="1">
+        <canceled shares="100" time="1554320757"/>
+        <executed shares="200" price="125.000000" time="1554320754"/>
+    </canceled>
+</results>
+
+Database:
+stockdb=# select * from open order by trans_id asc;
+ trans_id | sym | limi | shares | account_id
+----------+-----+------+--------+------------
+        2 | BTC |  130 |   -100 |        456
+        4 | BTC |  128 |   -500 |        456
+        5 | BTC |  140 |   -200 |        456
+        6 | BTC |  125 |    400 |        123
+(4 rows)
+
+stockdb=# select * from canceled;
+ trans_id | shares |    time    | account_id
+----------+--------+------------+------------
+        1 |    100 | 1554321720 |        123
+(1 row)

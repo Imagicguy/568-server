@@ -1,0 +1,66 @@
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client1 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <created id="123"/>
+    <created id="456"/>
+    <created id="789"/>
+    <created sym="SPY" id="123"/>
+    <created sym="BTC" id="456"/>
+    <created sym="BTC" id="789"/>
+    <created sym="T5asdf" id="789"/>
+    <created sym="qwerty" id="456"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client2 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="300" limit="125.000000" id="1"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client3 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="-100" limit="130.000000" id="2"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client4 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="200" limit="127.000000" id="3"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client5 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="-500" limit="128.000000" id="4"/>
+    <opened sym="BTC" amount="-200" limit="140.000000" id="5"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client6 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="400" limit="125.000000" id="6"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client7 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <opened sym="BTC" amount="-400" limit="124.000000" id="7"/>
+</results>
+
+yw314@vcm-7703:~/ece568/hw4/Mine/FINAL/testing/functionality/tutorial$ ./client8 vcm-7703
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <status id="1">
+        <open shares="100"/>
+        <executed shares="200" price="125.000000" time="1554320754"/>
+    </status>
+    <status id="7">
+        <executed shares="200" price="127.000000" time="1554320754"/>
+        <executed shares="200" price="125.000000" time="1554320754"/>
+    </status>
+    <canceled id="1">
+        <canceled shares="100" time="1554320757"/>
+        <executed shares="200" price="125.000000" time="1554320754"/>
+    </canceled>
+</results>
